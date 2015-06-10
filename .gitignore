@@ -26,6 +26,9 @@ proguard/
 # Log Files
 *.log
 
+
+# IntelliJ
+*.iml
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:
