@@ -28,6 +28,7 @@ proguard/
 
 
 # IntelliJ
+.idea/
 *.iml
 # if you remove the above rule, at least ignore the following:
 
