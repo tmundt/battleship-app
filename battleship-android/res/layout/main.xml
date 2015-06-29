@@ -5,13 +5,22 @@
               android:layout_height="fill_parent"
               android:weightSum="1">
     <TextView
+            android:id="@+id/welcome"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World, MainActivity"
             />
     <ImageView
+            android:id="@+id/startImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView" android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/startscreen"/>
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/firing-ship"
+            android:contentDescription="@string/startscreen">
+    </ImageView>
+    <ImageButton
+            android:id="@+id/weiterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/weiter_button"
+            />
 </LinearLayout>

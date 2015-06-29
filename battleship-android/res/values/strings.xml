@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">battleship</string>
     <string name="startscreen">startscreen</string>
+    <string name="welcome">Willkommen zu BATTLESHIP by NSE</string>
+
 </resources>
