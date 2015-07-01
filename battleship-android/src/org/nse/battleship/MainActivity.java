@@ -25,10 +25,8 @@ public class MainActivity extends Activity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent setupPlayerField = new Intent(this, SetupPlayerFieldActivity.class);
+                Intent setupPlayerField = new Intent(v.getContext(), SetupPlayerFieldActivity.class);
                 startActivity(setupPlayerField);
-
-
             }
         });
     }
