@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:weightSum="1"
-              android:layout_gravity="center_horizontal">
+              android:layout_gravity="center_horizontal"
+              android:background="@drawable/background_blue"
+              android:layout_gravitiy="top|center_horizontal" >
         <ImageView
                 android:id="@+id/startImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/image_ship_startscreen"
-                android:contentDescription="@string/startscreen">
+                android:contentDescription="@string/startscreen"
+                android:layout_above="@+id/ButtonSpielStarten" android:layout_centerHorizontal="true"
+                android:layout_marginBottom="37dp">
         </ImageView>
     <ImageButton
             android:id="@+id/ButtonSpielStarten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_spiel_starten"
-            />
-</FrameLayout>
+            android:layout_gravity="center"
+            android:layout_alignParentBottom="true" android:layout_alignLeft="@+id/startImage"
+            android:layout_marginBottom="49dp"/>
+</RelativeLayout>
