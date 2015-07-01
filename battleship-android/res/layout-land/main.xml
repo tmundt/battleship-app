@@ -14,11 +14,12 @@
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/image_ship_startscreen"
                 android:contentDescription="@string/startscreen"
-                android:layout_above="@+id/ButtonSpielStarten" android:layout_centerHorizontal="true"
+                android:layout_above="@+id/buttonSpielStarten"
+                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="37dp">
         </ImageView>
     <ImageButton
-            android:id="@+id/ButtonSpielStarten"
+            android:id="@+id/buttonSpielStarten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_spiel_starten"
