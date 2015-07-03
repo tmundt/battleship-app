@@ -18,21 +18,35 @@
             android:layout_alignParentTop="true" android:layout_centerHorizontal="true">
     </ImageView>
     <ImageView
-            android:id="@+id/imageplayfield"
+            android:id="@+id/imagePlayfield"
             android:layout_width="260dp"
             android:layout_height="252dp"
             android:src="@drawable/image_playfield"
             android:layout_marginLeft="24dp"
             android:layout_gravity="left|bottom"
-            android:layout_below="@+id/imageSetzeSchiffe" android:layout_alignParentLeft="true"/>
+            android:layout_below="@+id/imageSetzeSchiffe"
+            android:layout_alignParentLeft="true"/>
     <ImageButton
-            android:id="@+id/button_drehen"
+            android:id="@+id/buttonDrehen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_drehen"
             android:layout_gravity="center"
-            android:layout_marginLeft="31dp" android:layout_alignBottom="@+id/imageplayfield"
-            android:layout_toRightOf="@+id/imageSetzeSchiffe"/>
+            android:layout_alignBottom="@+id/imagePlayfield"
+            android:layout_toRightOf="@+id/imagePlayfield"
+            android:layout_marginLeft="24dp"
+            />
+    <ImageButton
+            android:id="@+id/buttonSpielen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_spielen"
+            android:layout_gravity="center"
+            android:layout_alignBottom="@+id/imagePlayfield"
+            android:layout_toRightOf="@+id/buttonDrehen"
+            android:layout_marginLeft="24dp"
+            />
+
 
 </RelativeLayout>
 
