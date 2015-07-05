@@ -15,17 +15,17 @@
             android:layout_gravity="center_horizontal|top"
             android:src="@drawable/image_schiffe_setzen"
             android:contentDescription="@string/startscreen"
-            android:layout_alignParentTop="true" android:layout_centerHorizontal="true">
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
     </ImageView>
     <ImageView
             android:id="@+id/imagePlayfield"
-            android:layout_width="260dp"
-            android:layout_height="252dp"
+            android:layout_width="300dp"
+            android:layout_height="280dp"
             android:src="@drawable/image_playfield"
-            android:layout_marginLeft="24dp"
             android:layout_gravity="left|bottom"
             android:layout_below="@+id/imageSetzeSchiffe"
-            android:layout_alignParentLeft="true"/>
+            android:layout_toRightOf="@+id/gridLayout"/>
     <ImageButton
             android:id="@+id/buttonDrehen"
             android:layout_width="wrap_content"
@@ -41,34 +41,34 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_spielen"
             android:layout_gravity="center"
-            android:layout_alignBottom="@+id/imagePlayfield"
-            android:layout_toRightOf="@+id/buttonDrehen"
-            android:layout_marginLeft="24dp"/>
+            android:layout_alignBottom="@+id/buttonDrehen"
+            android:layout_toRightOf="@+id/buttonShipBiggest"/>
     <ImageButton
             android:id="@+id/buttonShipBiggest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/image_ship_biggest"
             android:layout_gravity="center"
-            android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/buttonDrehen"/>
+            android:layout_below="@+id/buttonA7"
+            android:layout_toRightOf="@+id/buttonDrehen"/>
     <ImageButton
         android:id="@+id/buttonShipBig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/image_ship_big"
         android:layout_gravity="center"
-        android:layout_alignBottom="@+id/buttonShipBiggest"
-        android:layout_alignLeft="@+id/buttonSpielen"/>
+        android:layout_alignTop="@+id/imagePlayfield"
+        android:layout_toLeftOf="@+id/buttonShipMedium"
+        android:layout_marginRight="31dp"
+        android:layout_marginTop="19dp"/>
     <ImageButton
             android:id="@+id/buttonShipMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/image_ship_medium"
             android:layout_gravity="center"
-            android:layout_alignBottom="@+id/buttonShipBig"
-            android:layout_alignRight="@+id/buttonSpielen"
-            android:layout_marginRight="33dp"/>
+            android:layout_above="@+id/buttonShipSmall"
+            android:layout_alignRight="@+id/buttonSpielen"/>
     <ImageButton
             android:id="@+id/buttonShipMedium2"
             android:layout_width="wrap_content"
@@ -98,23 +98,330 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_a1"
-            android:layout_marginLeft="14dp"
-            android:layout_alignTop="@+id/gridLayout"
-            android:layout_alignLeft="@+id/imagePlayfield"
+            android:layout_marginLeft="17dp"
             android:maxHeight="20dp" android:maxWidth="20dp"
             android:minHeight="20dp" android:minWidth="20dp"
             android:nestedScrollingEnabled="false"
-            android:layout_marginTop="0dp"/>
+            android:layout_alignTop="@+id/gridLayout"
+            android:layout_alignLeft="@+id/imagePlayfield"/>
     <ImageButton
             android:id="@+id/buttonA2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_a2"
-            android:maxHeight="15dp" android:maxWidth="15dp"
-            android:minHeight="15dp" android:minWidth="15dp"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
             android:nestedScrollingEnabled="false"
-            android:layout_alignTop="@+id/buttonA1" android:layout_toRightOf="@+id/buttonA1"
-            android:layout_alignBottom="@+id/buttonA1"/>
+            android:layout_alignTop="@+id/buttonA1"
+            android:layout_toRightOf="@+id/buttonA1"/>
+    <ImageButton
+            android:id="@+id/buttonA3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_a3"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_alignTop="@+id/buttonA2"
+            android:layout_toRightOf="@+id/buttonA2"/>
+    <ImageButton
+            android:id="@+id/buttonA4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_a4"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_alignTop="@+id/buttonA3"
+            android:layout_toRightOf="@+id/buttonA3"/>
+    <ImageButton
+            android:id="@+id/buttonA5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_a5"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_alignTop="@+id/buttonA4"
+            android:layout_toRightOf="@+id/buttonA4"/>
+    <ImageButton
+            android:id="@+id/buttonA6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_a6"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_alignTop="@+id/buttonA5"
+            android:layout_toRightOf="@+id/buttonA5"/>
+    <ImageButton
+        android:id="@+id/buttonA7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_a7"
+        android:nestedScrollingEnabled="false"
+        android:layout_alignTop="@+id/buttonA6"
+        android:layout_toRightOf="@+id/buttonA6"
+        android:longClickable="false" android:layout_toLeftOf="@+id/buttonA8"/>
+    <ImageButton
+            android:id="@+id/buttonA8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_a8"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_alignTop="@+id/buttonA7"
+            android:layout_centerHorizontal="true"/>
+    <ImageButton
+        android:id="@+id/buttonB1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_b1"
+        android:maxHeight="20dp" android:maxWidth="20dp"
+        android:minHeight="20dp" android:minWidth="20dp"
+        android:nestedScrollingEnabled="false"
+        android:layout_below="@+id/buttonA1"
+        android:layout_alignLeft="@+id/buttonA1"
+        android:layout_toLeftOf="@+id/buttonA2"/>
+    <ImageButton
+            android:id="@+id/buttonB2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_b2"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonA2"
+            android:layout_alignLeft="@+id/buttonA2"
+            android:layout_toLeftOf="@+id/buttonA3"/>
+    <ImageButton
+            android:id="@+id/buttonB3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_b3"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonA3"
+            android:layout_alignLeft="@+id/buttonA3"
+            android:layout_toLeftOf="@+id/buttonA4"/>
+    <ImageButton
+            android:id="@+id/buttonB4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_b4"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonA4"
+            android:layout_alignLeft="@+id/buttonA4"
+            android:layout_toLeftOf="@+id/buttonA5"/>
+    <ImageButton
+            android:id="@+id/buttonB5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_b5"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonA5"
+            android:layout_alignLeft="@+id/buttonA5"
+            android:layout_toLeftOf="@+id/buttonA6"/>
+    <ImageButton
+            android:id="@+id/buttonB6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_b6"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonA6"
+            android:layout_alignLeft="@+id/buttonA6"
+            android:layout_toLeftOf="@+id/buttonA7"/>
+    <ImageButton
+            android:id="@+id/buttonB7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_b7"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonA7"
+            android:layout_alignLeft="@+id/buttonA7" android:layout_toLeftOf="@+id/buttonA8"/>
+    <ImageButton
+            android:id="@+id/buttonB8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_b8"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonA7"
+            android:layout_alignRight="@+id/imagePlayfield"/>
+    <ImageButton
+            android:id="@+id/buttonC1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_c1"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonB1"
+            android:layout_alignLeft="@+id/buttonB1"/>
+    <ImageButton
+            android:id="@+id/buttonC2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_c2"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonB2"
+            android:layout_alignLeft="@+id/buttonB2"/>
+    <ImageButton
+            android:id="@+id/buttonC3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_c3"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonB3"
+            android:layout_alignLeft="@+id/buttonB3"/>
+    <ImageButton
+            android:id="@+id/buttonC4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_c4"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonB4"
+            android:layout_alignLeft="@+id/buttonB4"/>
+    <ImageButton
+            android:id="@+id/buttonC5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_c5"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonB5"
+            android:layout_alignLeft="@+id/buttonB5"/>
+    <ImageButton
+            android:id="@+id/buttonC6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_c6"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonB6"
+            android:layout_alignLeft="@+id/buttonB6"/>
+    <ImageButton
+            android:id="@+id/buttonC7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_c7"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonB7"
+            android:layout_alignLeft="@+id/buttonB7" android:layout_toLeftOf="@+id/buttonB8"/>
+    <ImageButton
+            android:id="@+id/buttonC8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_c8"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonB8"
+            android:layout_alignLeft="@+id/buttonB8"/>
+    <ImageButton
+            android:id="@+id/buttonD1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_d1"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonC1"
+            android:layout_alignLeft="@+id/buttonC1"/>
+    <ImageButton
+            android:id="@+id/buttonD2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_d2"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonC2"
+            android:layout_alignLeft="@+id/buttonC2"/>
+    <ImageButton
+            android:id="@+id/buttonD3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_d3"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonC3"
+            android:layout_alignLeft="@+id/buttonC3"/>
+    <ImageButton
+            android:id="@+id/buttonD4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_d4"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonC4"
+            android:layout_alignLeft="@+id/buttonC4"/>
+    <ImageButton
+            android:id="@+id/buttonD5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_d5"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonC5"
+            android:layout_alignLeft="@+id/buttonC5"/>
+    <ImageButton
+            android:id="@+id/buttonD6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_d6"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonC6"
+            android:layout_alignLeft="@+id/buttonC6"
+            android:layout_toLeftOf="@+id/buttonD7"/>
+    <ImageButton
+            android:id="@+id/buttonD7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_d7"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonC7"
+            android:layout_alignLeft="@+id/buttonC7"
+            android:layout_toLeftOf="@+id/buttonC8"/>
+    <ImageButton
+            android:id="@+id/buttonD8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_d8"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonC8"
+            android:layout_alignLeft="@+id/buttonC8"
+            android:layout_alignRight="@+id/imagePlayfield"/>
 
 </RelativeLayout>
 
