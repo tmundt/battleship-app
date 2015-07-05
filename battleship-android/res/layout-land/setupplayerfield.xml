@@ -422,6 +422,17 @@
             android:layout_below="@+id/buttonC8"
             android:layout_alignLeft="@+id/buttonC8"
             android:layout_alignRight="@+id/imagePlayfield"/>
+    <ImageButton
+            android:id="@+id/buttonE1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_e1"
+            android:maxHeight="20dp" android:maxWidth="20dp"
+            android:minHeight="20dp" android:minWidth="20dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_below="@+id/buttonD1"
+            android:layout_alignLeft="@+id/buttonD1"
+            android:layout_toLeftOf="@+id/buttonD2"/>
 
 </RelativeLayout>
 
