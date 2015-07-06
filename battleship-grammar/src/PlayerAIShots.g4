@@ -11,7 +11,7 @@ file : row row row row row row row row row row row row row row row row row row r
 row : beginning (randomshot)? direction (LineBreak | EOF);
 //value: (randomshot|specificshot) ;
 
-beginning: 'Der Computer schießt';
+beginning: 'Der Computer schiesst';
 //randomshot: 'Zufall' ;
 randomshot: 'zufällig' ;
 //specificshot : SPECIFICSHOT ;

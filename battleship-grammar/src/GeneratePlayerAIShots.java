@@ -41,8 +41,20 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         code.append("	public static ArrayList<String> generateGameShots() {\n");
         code.append("		ArrayList<String> Shots = new ArrayList<String>();\n");
         // get txt file with Shots/coordinates from player AI
-        File file = new File("src/ShotsPlayerAI.txt");
+        File file = null;
 
+        // Pfad zur Metadaten-Datei in Windows - TOM
+        String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
+        // Pfad zur Metadaten-Datei in MAC - TOM
+        //String filePath = "src/ShotsPlayerAI.txt";
+
+        file = new File(filePath);
+        if(file.exists()) {
+            System.out.println("file is: " + file);
+        } else {
+            System.out.println("Metadaten nicht gefunden, bitte erstellen!");
+            throw new FileNotFoundException("Not found");
+        }
         // Get CSV lexer
         PlayerAIShotsLexer lexer = new PlayerAIShotsLexer(new ANTLRInputStream(new FileReader(file)));
         // Get a list of matched tokens
@@ -80,7 +92,9 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
 
         // Workaround: generate path for windows
         //pathToFile = pathToFile.replace("/D", "D");
-        String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
+//        String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
+        String pathToFile = "E:/repo/github/battleship-app/battleship-android/src";
+        pathToFile += "/GeneratedPlayerAI.java";
         System.out.println("Generating Java-Class: \n" + pathToFile);
         Path fileOut = Paths.get(pathToFile);
 
