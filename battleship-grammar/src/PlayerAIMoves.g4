@@ -6,10 +6,7 @@ grammar PlayerAIMoves;
 file : row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row EOF ;
 //row : Letters value Letters ('.') (LineFeed | EOF) ;
 row : (sentence)* value (sentence)* (LineBreak | EOF) ;
-//row : value (LineBreak | EOF) ;
-//row: Letters value Letters (LineBreak | EOF);
 
-//value : (RANDOMSHOT|SpecificShot|Letters) (Letters)*;
 value: (randomshot|specificshot) ;
 
 randomshot: 'Zufall' ;
