@@ -24,8 +24,7 @@
             android:layout_height="280dp"
             android:src="@drawable/image_playfield"
             android:layout_gravity="left|bottom"
-            android:layout_below="@+id/imageSetzeSchiffe"
-            android:layout_toRightOf="@+id/gridLayout"/>
+            android:layout_below="@+id/imageSetzeSchiffe"/>
     <ImageButton
             android:id="@+id/buttonDrehen"
             android:layout_width="wrap_content"
@@ -49,7 +48,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/image_ship_biggest"
             android:layout_gravity="center"
-            android:layout_below="@+id/buttonA7"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/buttonDrehen"/>
     <ImageButton
         android:id="@+id/buttonShipBig"
