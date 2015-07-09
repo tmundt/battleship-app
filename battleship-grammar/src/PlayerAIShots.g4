@@ -5,26 +5,34 @@
 */
 
 grammar PlayerAIShots;
-file : row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row EOF ;
-
+//file : row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row EOF ;
+file : row row EOF ;
 //row : (sentence)* value (sentence)* (LineBreak | EOF) ;
-row : beginning (randomshot)? direction (LineBreak | EOF);
+row : START SPACE (RANDOM)? (SPACE)? direction Dot (LineBreak | EOF);
 //value: (randomshot|specificshot) ;
 
-beginning: 'Der Computer schiesst';
 //randomshot: 'Zufall' ;
-randomshot: 'zufällig' ;
+SPACE : ' ' ;
+randomshot: RANDOM ;
+direction : DIRECTION ;
 //specificshot : SPECIFICSHOT ;
 //SPECIFICSHOT : [A-G][1-7] ;
 
-direction : DIRECTION ;
+//direction : DIRECTION ;
+//begin :  BEGIN ;
+
+RANDOM : 'zufällig' ;
 DIRECTION : ('linkslastig'|'rechtslastig'|'zentral') ;
+START : 'Der Computer schiesst' ;
+
+
 
 //sentence : SENTENCE ;
 //SENTENCE : ('A'..'Z'|'a'..'z'|'.'|'/'|'') ;
 
+Dot : '.' ;
 
 // line break
 LineBreak : '\r'?'\n' | '\r';
 
-WS : [ \t\r\n]+ -> skip ; // skip tabs, newlines
+WS : [\t\r\n]+ -> skip ; // skip tabs, newlines

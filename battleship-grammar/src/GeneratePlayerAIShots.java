@@ -44,9 +44,9 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         File file = null;
 
         // Pfad zur Metadaten-Datei in Windows - TOM
-        String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
+        //String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
         // Pfad zur Metadaten-Datei in MAC - TOM
-        //String filePath = "src/ShotsPlayerAI.txt";
+        String filePath = "/Users/thomasmundt/repo/github/battleship-app/battleship-grammar/src/ShotsPlayerAI.txt";
 
         file = new File(filePath);
         if(file.exists()) {
@@ -82,18 +82,14 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
 
         byte data[] = code.toString().getBytes();
 
-        // Get the URL to the project where the java file will be generated
-        //URL url = Controller.class.getProtectionDomain().getCodeSource().getLocation();
-        //String pathToFile = url.getFile().toString();
-
-        // change path where java file will be stored
-        //pathToFile = pathToFile.replace("/bin/", "/src/");
-        //pathToFile = pathToFile + "org/nse/battleship/GeneratedPlayerAI.java";
-
-        // Workaround: generate path for windows
-        //pathToFile = pathToFile.replace("/D", "D");
-//        String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
-        String pathToFile = "E:/repo/github/battleship-app/battleship-android/src";
+        // Absoluter Pfad zum Android-Projekt zur Speicherung der generierten Java-Klasse
+        // Einstellung für Josi/Windows
+        //String pathToFile = "D:/coding/repo/github/battleship-app/battleship-android/src"
+        // Einstellung für Tom/Mac
+        String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
+        pathToFile += "/org/nse/battleship";
+        // Einstellung für Tom/Windows
+//        String pathToFile = "E:/repo/github/battleship-app/battleship-android/src";
         pathToFile += "/GeneratedPlayerAI.java";
         System.out.println("Generating Java-Class: \n" + pathToFile);
         Path fileOut = Paths.get(pathToFile);
@@ -102,8 +98,9 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         Files.write(fileOut, data);
     }
 
-    public void exitRandomShot(PlayerAIShotsParser.RandomshotContext ctx ) {
+    public void enterRandomshot(PlayerAIShotsParser.RandomshotContext ctx ) {
         String moveType = ctx.getText();
+        System.out.println("enterRandomShot");
         String move = "";
         if(moveType.equals("zufällig")) {
 			System.out.println("exitValue(), Zufall!");
@@ -115,6 +112,15 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
             setShotIntoFieldAI(move);
         }
         code.append("        Shots.add(\"" + move + "\");\n");
+    }
+
+    public void enterRow(PlayerAIShotsParser.RowContext ctx) {
+        System.out.println("ROW ENTER: " + ctx.getText());
+    }
+
+    @Override
+    public void enterDirection(PlayerAIShotsParser.DirectionContext ctx) {
+        System.out.println("enterDirection: " + ctx.getText());
     }
 
     public static String generateRandomMove() {
