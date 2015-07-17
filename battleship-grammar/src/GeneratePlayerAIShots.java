@@ -10,7 +10,9 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Random;
+import java.sql.Array;
+import java.util.*;
+import java.util.function.BooleanSupplier;
 
 
 /**
@@ -23,6 +25,7 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
     private static String ls = System.lineSeparator();
     private static int counter = 0;
     private static boolean[][] shotsPlayerAI;
+    private static Map<String, Boolean> mapShotsPlayerAI;
 
     /**
      * @param args
@@ -41,7 +44,7 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         code.append("	public static ArrayList<String> generateGameShots() {\n");
         code.append("		ArrayList<String> Shots = new ArrayList<String>();\n");
         // get txt file with Shots/coordinates from player AI
-        File file = null;
+        File file;
 
         // Pfad zur Metadaten-Datei in Windows - TOM
         //String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
@@ -114,38 +117,79 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         code.append("        Shots.add(\"" + move + "\");\n");
     }
 
-    public void enterRow(PlayerAIShotsParser.RowContext ctx) {
-        System.out.println("ROW ENTER: " + ctx.getText());
+    /**
+     * Verarbeitung einer Zeile (row) zu Beginn
+     * @param ctx Parserkontext
+     */
+    public void exitRow(PlayerAIShotsParser.RowContext ctx) {
+        Boolean isRandom = false;
+        Boolean isLeft = false;
+        Boolean isRight = false;
+
+        // Ausgabe der gesamten Zeile
+        String output = ctx.getText();
+        System.out.println("ROW EXIT: " + output);
+        System.out.print("Schuss ist:  ");
+        if (output.contains("zufällig")) {
+            System.out.print("zufällig");
+            isRandom = true;
+        }
+        if(output.contains("linkslastig")) {
+            if(isRandom) {
+                System.out.print(", ");
+            }
+            isLeft = true;
+            if(isRandom)
+            System.out.println("im linken Bereich.");
+        }
+        if(output.contains("rechtslastig")) {
+            if(isRandom) {
+                System.out.print(", ");
+            }
+            isRight = true;
+            System.out.println("im rechten Bereich.");
+        }
+        if(output.contains("zentral")) {
+            if(isRandom) {
+                System.out.print(", ");
+            }
+            isRight = true;
+            System.out.println("im zentralen Bereich.");
+        }
     }
 
     @Override
     public void enterDirection(PlayerAIShotsParser.DirectionContext ctx) {
-        System.out.println("enterDirection: " + ctx.getText());
+       // System.out.println("enterDirection: " + ctx.getText());
     }
 
     public static String generateRandomMove() {
 //		System.out.println("Generating random move");
         int randomColumnCoord;
         int randomRowCoord;
-        String move;
+        String shot;
         do {
             // Generate random move
 //			System.out.println("Entering do");
+            String[] coord = new String[]{"A","B","C","D","E","F","G","H"};
             randomRowCoord = randomInteger(0,7);
             randomColumnCoord = randomInteger(0,7);
+            shot = coord[randomRowCoord] + Integer.toString(randomColumnCoord);
 //			System.out.println("Leaving do, has  randomRow: "+ randomRowCoord+", randowmColumn: "+ randomColumnCoord);
-            if (GeneratePlayerAIShots.checkIfShotIsPresentAtField(randomRowCoord, randomColumnCoord) == false){
+//            if (GeneratePlayerAIShots.checkIfShotIsPresentAtField(randomRowCoord, randomColumnCoord) == false){
+                if (GeneratePlayerAIShots.isShotPresentAtField(shot) == false){
                 //System.out.println("Wurde schon drauf geschossen!");
                 // this field has not been shot at so mark it as been shot for this move
-                GeneratePlayerAIShots.shotsPlayerAI[randomRowCoord][randomColumnCoord] = true;
+//                GeneratePlayerAIShots.shotsPlayerAI[randomRowCoord][randomColumnCoord] = true;
+                    GeneratePlayerAIShots.mapShotsPlayerAI.put(shot, true);
             } // else {
 //				System.out.println("Wurde noch nicht drauf geschossen");
 //			}
-        } while (GeneratePlayerAIShots.checkIfShotIsPresentAtField(randomColumnCoord, randomRowCoord)== false);
+        } while (GeneratePlayerAIShots.isShotPresentAtField(shot));
         //GeneratePlayerAIShots.shotsPlayerAI[randomColumnCoord][randomRowCoord] = true;
-        move = GeneratePlayerAIShots.changeIntToCoordinates(randomRowCoord, randomColumnCoord);
+//        move = GeneratePlayerAIShots.changeIntToCoordinates(randomRowCoord, randomColumnCoord);
         //System.out.println("generateRandomMove(), move: " + move);
-        return move;
+        return shot;
     }
 
 	/*
@@ -160,7 +204,35 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
                 //System.out.println("shotsPlayerAI at " + i+j+": " + shotsPlayerAI[i][j]);
             }
         }
+
+        mapShotsPlayerAI = new LinkedHashMap<>();
+        List<String> al = new ArrayList<String>();
+        al.add("A");
+        al.add("B");
+        al.add("C");
+        al.add("D");
+        al.add("E");
+        al.add("F");
+        al.add("G");
+        al.add("H");
+//        for (int i = 0; i < 8; i++) {
+//            for (String coord: al) {
+//                mapShotsPlayerAI.put(coord+Integer.toString(i), false);
+//            }
+//        }
+        // Generierung: zeilenweise, also A0,A1,...A7,B0,B1...B7, usw.
+        for (String coord: al) {
+            for (int i = 0; i < 8; i++) {
+                mapShotsPlayerAI.put(coord+Integer.toString(i), false);
+            }
+        }
+
+
+        System.out.println("mapShotsPlayer ist: " + mapShotsPlayerAI);
+        System.out.println("Länge des Feldes: " + mapShotsPlayerAI.values().size());
     }
+
+
 
     private static int randomInteger(int min, int max) {
 
@@ -174,15 +246,50 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         return randomNum;
     }
 
-    private static boolean checkIfShotIsPresentAtField (int row, int column) {
-        if(GeneratePlayerAIShots.shotsPlayerAI[row][column] == false) {
-            return false;
-        } else {
-            return true;
-        }
+    /**
+    //
+    //@param:
+    //@return:
+    */
+
+    /**
+     * Ueberpruefe ob Schuss bereits im Feld vorhanden bzw.
+     * bereits auf diese Koordiante geschossen wurde
+     *
+     * @param shot Koordinate/Schuss der zu überprüfen ist
+     * @return false : falls nein, true : ja
+     */
+    private static boolean isShotPresentAtField (String shot) {
+        //if(GeneratePlayerAIShots.shotsPlayerAI[row][column] == false) {
+        //if(mapShotsPlayerAI.get(shot) == true) {
+
+          //return false;
+        //} else {
+           // return true;
+        //}
         //return true;
+        return mapShotsPlayerAI.get(shot);
     }
 
+    /**
+     * Setze Schuss in erstes freies Feld im linken Bereich
+     * @TODO Bereich begrenzen, erstes freies Feld finden, Feld als markiert setzen=TRUE
+     * @TODO: switch/case: parameter des teilbereichs uebergeben (ggfs. weniger Code)
+     * @param area
+     * @return
+     */
+    private static boolean setShotInLeftField (String area) {
+//        case area:
+
+        return false;
+    }
+
+    /**
+     *
+     * @param row
+     * @param column
+     * @return
+     */
     private static String changeIntToCoordinates(int row, int column) {
         StringBuilder coord = new StringBuilder();
         coord.append("");
@@ -200,6 +307,9 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
             case 5: coord.append("F");
                 break;
             case 6: coord.append("G");
+                break;
+            case 7: coord.append("H");
+                break;
         };
         coord.append(column+1); // add 1 because index starts at 0
         String coordinates = coord.toString();
@@ -218,8 +328,12 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
             System.out.println();
         }
     }
-
+    /*
+    setShotIntoFieldAI
+    @param String shot: shot to be marked in coordinates of field
+     */
     private static void setShotIntoFieldAI(String shot) {
+        mapShotsPlayerAI.put(shot, true);
         int row = 0;
         //System.out.println("column of shot, setShot(): " + shot.charAt(1));
         int column =  Integer.valueOf(shot.substring(1));
@@ -245,6 +359,7 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
                 break;
             case 'G':
                 row = 6;
+
         }
 
         //System.out.println("setShotIntoFieldAI(), Coords:" + row+"," + column);

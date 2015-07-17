@@ -8,7 +8,7 @@ grammar PlayerAIShots;
 //file : row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row EOF ;
 file : row row EOF ;
 //row : (sentence)* value (sentence)* (LineBreak | EOF) ;
-row : START SPACE (RANDOM)? (SPACE)? direction Dot (LineBreak | EOF);
+row : START (SPACE RANDOM)? SPACE direction Dot (LineBreak | EOF);
 //value: (randomshot|specificshot) ;
 
 //randomshot: 'Zufall' ;
