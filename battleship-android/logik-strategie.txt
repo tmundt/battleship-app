@@ -1,0 +1,28 @@
+SetupPlayerfieldActivity:
+
+- DragListener --> Objekt: einzelnes schiff
+
+-- Verhalten: Einhalten der Koordinaten (x, y, Spielfeldgrösse beachten)
+--- 
+-- keine Schiffe übereinander
+ggfs. (-- Abstand von Schiff zu Schiff mindestens zwei Felder)
+
+-OnClickListner --> Objekt: Auswahlfeld der Schiffe/einzelnes Schiff
+-- Release: nur auf gültigem Feld im Spielfeld
+-- Release bei falscher Koordinate: Zurückspringen, Reset von Schiff zurück ins Auswahlfeld
+
+- Button drehen:
+-- nur anwählbar, wenn Schiff im Spielfeld gesetzt ist
+-- nur anwählbar bei einem ausgewähltem Schiff --> zuletzt ausgewählt (Flag?)
+-- drehen Aktion: 90 Grad, nur gültige Felder belegen bzw. nur gültige Ausdrehungen ausführen
+
+- Button spielen:
+-- nur anwählbar/aktivierbar, wenn alle Schiffe gesetzt
+-- Bei unerlaubtem Auswählen: Hinweisnachricht: Schiffe setzen!
+-- bei gesetzten Schiffen: Aufruf der nächsten Activity (GameActionActivty)
+
+--> Logik
+- Intent an nächster Activiy: Übergabe des Spielfeldes des menschlischen Spielers
+
+
+
