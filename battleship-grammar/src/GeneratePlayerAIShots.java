@@ -6,13 +6,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Array;
 import java.util.*;
-import java.util.function.BooleanSupplier;
 
 
 /**
@@ -47,16 +44,16 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         File file;
 
         // Pfad zur Metadaten-Datei in Windows - TOM
-        String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
+        //String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
         // Pfad zur Metadaten-Datei in MAC - TOM
-        //String filePath = "/Users/thomasmundt/repo/github/battleship-app/battleship-grammar/src/ShotsPlayerAI.txt";
+        String filePath = "/Users/thomasmundt/repo/github/battleship-app/battleship-grammar/src/ShotsPlayerAI.txt";
 
         file = new File(filePath);
         if(file.exists()) {
             System.out.println("file is: " + file);
         } else {
             System.out.println("Metadaten nicht gefunden, bitte erstellen!");
-            throw new FileNotFoundException("Not found");
+            throw new FileNotFoundException("Datei nicht gefunden: " + file);
         }
         // Get CSV lexer
         PlayerAIShotsLexer lexer = new PlayerAIShotsLexer(new ANTLRInputStream(new FileReader(file)));
@@ -87,16 +84,15 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
 
         // Absoluter Pfad zum Android-Projekt zur Speicherung der generierten Java-Klasse
         // Einstellung für Josi/Windows
-        //String pathToFile = "D:/coding/repo/github/battleship-app/battleship-android/src"
+//        String pathToFile = "D:/coding/repo/github/battleship-app/battleship-android/src";
 
-        // Einstellung für Tom/Windows
-        String pathToFile = "E:/repo/github/battleship-app/battleship-android/src";
-
-        // Einstellung für Tom/Mac
-        //String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
-        pathToFile += "/org/nse/battleship";
         // Einstellung für Tom/Windows
 //        String pathToFile = "E:/repo/github/battleship-app/battleship-android/src";
+
+        // Einstellung für Tom/Mac
+        String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
+        pathToFile += "/org/nse/battleship";
+
         pathToFile += "/GeneratedPlayerAI.java";
         System.out.println("Generating Java-Class: \n" + pathToFile);
         Path fileOut = Paths.get(pathToFile);
@@ -136,6 +132,8 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         String output = ctx.getText();
         System.out.println("ROW EXIT: " + output);
         System.out.print("Schuss ist:  ");
+
+        // Auswertung der Zeile
         if (output.contains("zufaellig")) {
             System.out.print("zufällig");
             isRandom = true;
@@ -185,13 +183,14 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         // naechst-moeglich: erstes freies Feld, von links nach rechts, und von oben nach unten
         if (isRandom == false) {
             if(isLeft) {
-
+                shot = generateShotInNextFreeSpace("links");
             }
             if (isRight) {
-
+                shot = generateShotInNextFreeSpace("rechts");
             }
             if(isCentral) {
                 System.out.println("Kein zufälliger Schuss, zentraler Bereich");
+                shot = generateShotInNextFreeSpace("zentral");
             }
         }
 
@@ -214,7 +213,7 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         String shot;
         int randomRowCoord;
         int randomColumnCoord;
-        String[] coord = new String[]{"A","B","C","D","E","F","G","H"};
+        String[] rowCoord = new String[]{"A","B","C","D","E","F","G","H"};
         do {
             switch(area) {
                 case "links":
@@ -243,7 +242,7 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
                 System.out.println("Kann keine Koordiante erzeugen!");
                 throw new IllegalArgumentException();
             }
-            shot = coord[randomRowCoord] + Integer.toString(randomColumnCoord);
+            shot = rowCoord[randomRowCoord] + Integer.toString(randomColumnCoord);
             System.out.println("generateRandomShot(), shot: " + shot);
 
             // Ueberpruefe ob Schuss bereits im Feld vorhanden bzw.
@@ -260,10 +259,83 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
 
     private static String generateShotInNextFreeSpace (String area) {
         String shot = "";
+
+        // Moegliche Zeilen-Koordinaten
+        String[] rowCoords = new String[]{"A","B","C","D","E","F","G","H"};
+        String tempCoord; // temporaere Koordinate
+        int startColumn = 0;
+        int endColumn = 0;
+
+        switch (area) {
+            case "links":
+                startColumn = 1;
+                endColumn = 3;
+                break;
+            case "zentral":
+                startColumn = 4;
+                endColumn = 5;
+                break;
+            case "rechts":
+                startColumn = 6;
+                endColumn = 8;
+                break;
+            case "ueberall":
+                startColumn = 1;
+                endColumn = 8;
+                break;
+        }
+        for (String coord: rowCoords) {
+            for( int i=startColumn; i <= endColumn; i++ ) {
+                // Erstelle temporaere Koordinate
+                tempCoord = coord+Integer.toString(i);
+                // Pruefe ob diese Koordinate bereits zum Beschiessen vorgesehen war
+                System.out.println("Überprüfe Koordinate" + tempCoord);
+
+                if(mapShotsPlayerAI.get(tempCoord) == false) {
+                    //Koordinate noch nicht belegt: belegen
+                    System.out.println("Koordinate zum Belegen gefunden:  " + tempCoord);
+                    shot = tempCoord;
+                    mapShotsPlayerAI.put(tempCoord, true);
+                    // Sprung aus Methode zur Verhinderung weiterer Belegungen
+                    return shot;
+                }
+            }
+        }
+        // Kein Schuss im Bereich gefunden: finde den nächst möglichen in der gesamten Map
+        // Es muss mindestens noch ein freies Feld in der Map geben wg. der Grammatik!
+        if (shot.isEmpty()) {
+            generateShotInNextFreeSpace("ueberall");
+            System.out.println("Keinen möglichen Schuss für Bereich " + area + "gefunden.");
+            System.out.println("Generiere nächstmöglichen Schuss im nächsten freien Feld!");
+
+            // Rekursiver Aufruf der Methode: Suche ueberall!
+            generateShotInNextFreeSpace("ueberall");
+//            for (String coord: rowCoords) {
+//                for (int i = startColumn; i < endColumn + 1; i++) {
+//                    // Erstelle temporaere Koordinate
+//                    tempCoord = coord + Integer.toString(i);
+//                    System.out.println("Überprüfe Koordinate" + tempCoord);
+//
+//                    if (mapShotsPlayerAI.get(tempCoord) == false) {
+//                        //Koordinate noch nicht belegt: belegen
+//                        System.out.println("Koordinate zum Belegen gefunden:  " + tempCoord);
+//                        shot = tempCoord;
+//                        mapShotsPlayerAI.put(tempCoord, true);
+//                        // Sprung aus Methode zur Verhinderung weiterer Belegungen
+//                        return shot;
+//                    }
+//                }
+//            }
+
+        }
         return shot;
-        
+
     }
 
+    private static String setShotIntoField(String start, String end) {
+        String shot = "";
+        return shot;
+    }
 
     /**
      * Erstellen eines Zufallsschusses der KI
@@ -313,7 +385,7 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
             }
         }
 
-        mapShotsPlayerAI = new LinkedHashMap<>();
+        mapShotsPlayerAI = new TreeMap<>();
         List<String> al = new ArrayList<String>();
         al.add("A");
         al.add("B");
@@ -328,7 +400,7 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
 //                mapShotsPlayerAI.put(coord+Integer.toString(i), false);
 //            }
 //        }
-        // Generierung: zeilenweise, also A0,A1,...A7,B0,B1...B7, usw.
+        // Generierung: zeilenweise, also A1,...A7,B0,B1...B7, usw.
         for (String coord: al) {
             for (int i = 1; i < 9; i++) {
                 mapShotsPlayerAI.put(coord+Integer.toString(i), false);
