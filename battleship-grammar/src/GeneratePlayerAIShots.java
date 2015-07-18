@@ -47,9 +47,9 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         File file;
 
         // Pfad zur Metadaten-Datei in Windows - TOM
-        //String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
+        String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
         // Pfad zur Metadaten-Datei in MAC - TOM
-        String filePath = "/Users/thomasmundt/repo/github/battleship-app/battleship-grammar/src/ShotsPlayerAI.txt";
+        //String filePath = "/Users/thomasmundt/repo/github/battleship-app/battleship-grammar/src/ShotsPlayerAI.txt";
 
         file = new File(filePath);
         if(file.exists()) {
@@ -88,8 +88,12 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         // Absoluter Pfad zum Android-Projekt zur Speicherung der generierten Java-Klasse
         // Einstellung für Josi/Windows
         //String pathToFile = "D:/coding/repo/github/battleship-app/battleship-android/src"
+
+        // Einstellung für Tom/Windows
+        String pathToFile = "E:/repo/github/battleship-app/battleship-android/src";
+
         // Einstellung für Tom/Mac
-        String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
+        //String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
         pathToFile += "/org/nse/battleship";
         // Einstellung für Tom/Windows
 //        String pathToFile = "E:/repo/github/battleship-app/battleship-android/src";
@@ -132,7 +136,7 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         String output = ctx.getText();
         System.out.println("ROW EXIT: " + output);
         System.out.print("Schuss ist:  ");
-        if (output.contains("zufällig")) {
+        if (output.contains("zufaellig")) {
             System.out.print("zufällig");
             isRandom = true;
         }

@@ -21,7 +21,7 @@ direction : DIRECTION ;
 //direction : DIRECTION ;
 //begin :  BEGIN ;
 
-RANDOM : 'zufällig' ;
+RANDOM : 'zufaellig' ;
 DIRECTION : ('linkslastig'|'rechtslastig'|'zentral') ;
 START : 'Der Computer schiesst' ;
 
