@@ -122,9 +122,11 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
      * @param ctx Parserkontext
      */
     public void exitRow(PlayerAIShotsParser.RowContext ctx) {
-        Boolean isRandom = false;
-        Boolean isLeft = false;
-        Boolean isRight = false;
+        boolean isRandom = false;
+        boolean isLeft = false;
+        boolean isRight = false;
+        boolean isCentral = false;
+        String shot = "";
 
         // Ausgabe der gesamten Zeile
         String output = ctx.getText();
@@ -139,8 +141,10 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
                 System.out.print(", ");
             }
             isLeft = true;
-            if(isRandom)
-            System.out.println("im linken Bereich.");
+            if(isRandom) {
+                System.out.println("im linken Bereich.");
+            }
+
         }
         if(output.contains("rechtslastig")) {
             if(isRandom) {
@@ -153,9 +157,42 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
             if(isRandom) {
                 System.out.print(", ");
             }
-            isRight = true;
+            isCentral = true;
             System.out.println("im zentralen Bereich.");
         }
+        System.out.println("TEST: Zufall ist:" + isRandom + "links: " + isLeft);
+//        if (isRandom & isLeft) {
+//
+//        }
+        // Generiere zufaelligen Schuss, je nach Bereich
+        if (isRandom) {
+            if(isLeft) {
+                System.out.println("zufällig, links");
+                shot = generateRandomShot("links");
+            }
+            if (isRight) {
+                shot = generateRandomShot("rechts");
+            }
+            if(isCentral) {
+                shot = generateRandomShot("zentral");
+            }
+        }
+        // Generiere naechst-moeglichen Schuss im jeweiligen Bereich
+        // naechst-moeglich: erstes freies Feld, von links nach rechts, und von oben nach unten
+        if (isRandom == false) {
+            if(isLeft) {
+
+            }
+            if (isRight) {
+
+            }
+            if(isCentral) {
+                System.out.println("Kein zufälliger Schuss, zentraler Bereich");
+            }
+        }
+
+
+        System.out.println("Generierter Schuss auf Koordinate: " + shot);
     }
 
     @Override
@@ -163,6 +200,71 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
        // System.out.println("enterDirection: " + ctx.getText());
     }
 
+    /**
+     * Generiere Zufallschuss der KI, abhängig von dem Bereich wo
+     * geschossen werden soll
+     * @param area Bereich des zu generierenden Schusses
+     * @return
+     */
+    private static String generateRandomShot(String area) {
+        String shot;
+        int randomRowCoord;
+        int randomColumnCoord;
+        String[] coord = new String[]{"A","B","C","D","E","F","G","H"};
+        do {
+            switch(area) {
+                case "links":
+                    randomRowCoord = randomInteger(0, 2);
+                    randomColumnCoord = randomInteger(0, 2) + 1;
+                    break;
+                case "zentral":
+                    randomRowCoord = randomInteger(0, 7);
+                    randomColumnCoord = randomInteger(3, 4) + 1;
+                    break;
+                case "rechts":
+                    randomRowCoord = randomInteger(5, 7);
+                    randomColumnCoord = randomInteger(5, 7) + 1;
+                    break;
+                case "ueberall":
+                    randomRowCoord = randomInteger(0, 7);
+                    randomColumnCoord = randomInteger(0, 7) + 1;
+                    break;
+                // Abfangen: kein erlaubter Wert fuer "area", setze -1
+                default:
+                    randomRowCoord = -1;
+                    randomColumnCoord = -1;
+            }
+            if (randomRowCoord == -1 | randomColumnCoord == -1) {
+                System.out.println("Unbekannter angegebener Bereich: " + area);
+                System.out.println("Kann keine Koordiante erzeugen!");
+                throw new IllegalArgumentException();
+            }
+            shot = coord[randomRowCoord] + Integer.toString(randomColumnCoord);
+            System.out.println("generateRandomShot(), shot: " + shot);
+
+            // Ueberpruefe ob Schuss bereits im Feld vorhanden bzw.
+            // bereits auf diese Koordiante geschossen wurde
+            if (mapShotsPlayerAI.get(shot) == false){
+                // Nein, setze generierten Zufalls-Schuss
+                GeneratePlayerAIShots.mapShotsPlayerAI.put(shot, true);
+            }
+        // Generiere Zufalls-Koordinate solange, bis Koordinate nicht gefunden/Schuss nicht gesetzt wurde
+        } while (mapShotsPlayerAI.get(shot) == false);
+
+        return shot;
+    }
+
+    private static String generateShotInNextFreeSpace (String area) {
+        String shot = "";
+        return shot;
+        
+    }
+
+
+    /**
+     * Erstellen eines Zufallsschusses der KI
+     * @return
+     */
     public static String generateRandomMove() {
 //		System.out.println("Generating random move");
         int randomColumnCoord;
@@ -185,6 +287,7 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
             } // else {
 //				System.out.println("Wurde noch nicht drauf geschossen");
 //			}
+//        } while (GeneratePlayerAIShots.isShotPresentAtField(shot));
         } while (GeneratePlayerAIShots.isShotPresentAtField(shot));
         //GeneratePlayerAIShots.shotsPlayerAI[randomColumnCoord][randomRowCoord] = true;
 //        move = GeneratePlayerAIShots.changeIntToCoordinates(randomRowCoord, randomColumnCoord);
@@ -192,10 +295,11 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         return shot;
     }
 
-	/*
-	 * Initialize field for shots of playerAI, holds given shots of playerAI
-	 */
 
+    /**
+     *
+     * Initialsiere Map fuer die Schuesse des Computer-Gegners
+     */
     private static void initializeShotsPlayerAI() {
         shotsPlayerAI = new boolean[8][8];
         for (int i = 0; i < 8; i++) {
@@ -222,17 +326,22 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
 //        }
         // Generierung: zeilenweise, also A0,A1,...A7,B0,B1...B7, usw.
         for (String coord: al) {
-            for (int i = 0; i < 8; i++) {
+            for (int i = 1; i < 9; i++) {
                 mapShotsPlayerAI.put(coord+Integer.toString(i), false);
             }
         }
 
 
-        System.out.println("mapShotsPlayer ist: " + mapShotsPlayerAI);
+        System.out.println("Generierte mapShotsPlayer ist: " + mapShotsPlayerAI);
         System.out.println("Länge des Feldes: " + mapShotsPlayerAI.values().size());
     }
 
-
+    /**
+     * Generiere int Zufallszahl
+     * @param min untere Grenze fuer Zufallszahlen-Generierung
+     * @param max obere Grenze fuer Zufallszahlen-Generierung
+     * @return randomNum generierte Zufallszahl
+     */
 
     private static int randomInteger(int min, int max) {
 
@@ -247,17 +356,11 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
     }
 
     /**
-    //
-    //@param:
-    //@return:
-    */
-
-    /**
      * Ueberpruefe ob Schuss bereits im Feld vorhanden bzw.
      * bereits auf diese Koordiante geschossen wurde
      *
      * @param shot Koordinate/Schuss der zu überprüfen ist
-     * @return false : falls nein, true : ja
+     * @return false : falls nein, true : ja (= vorhanden)
      */
     private static boolean isShotPresentAtField (String shot) {
         //if(GeneratePlayerAIShots.shotsPlayerAI[row][column] == false) {
@@ -332,6 +435,11 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
     setShotIntoFieldAI
     @param String shot: shot to be marked in coordinates of field
      */
+
+    /**
+     *
+     * @param shot
+     */
     private static void setShotIntoFieldAI(String shot) {
         mapShotsPlayerAI.put(shot, true);
         int row = 0;
@@ -363,6 +471,6 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         }
 
         //System.out.println("setShotIntoFieldAI(), Coords:" + row+"," + column);
-        GeneratePlayerAIShots.shotsPlayerAI[row][column] = true;
+        //GeneratePlayerAIShots.shotsPlayerAI[row][column] = true;
     }
 }
