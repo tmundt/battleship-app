@@ -23,67 +23,87 @@
             android:layout_width="300dp"
             android:layout_height="280dp"
             android:src="@drawable/image_playfield"
+            android:contentDescription="@string/startscreen"
             android:layout_gravity="left|bottom"
-            android:layout_below="@+id/imageSetzeSchiffe"/>
+            android:layout_below="@+id/imageSetzeSchiffe"
+            android:layout_alignParentLeft="true"/>
     <ImageButton
             android:id="@+id/buttonDrehen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_drehen"
+            android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
             android:layout_alignBottom="@+id/imagePlayfield"
             android:layout_toRightOf="@+id/imagePlayfield"
             android:layout_marginLeft="24dp"/>
     <ImageButton
+            android:id="@+id/button_a1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_a1"
+            android:contentDescription="@string/startscreen"
+            android:layout_gravity="center"
+            android:layout_alignBottom="@+id/imagePlayfield"
+            android:layout_toRightOf="@+id/imagePlayfield"
+            android:layout_marginLeft="-276dp"
+            android:layout_alignTop="@+id/buttonSpielen"/>
+    <ImageButton
             android:id="@+id/buttonSpielen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_spielen"
+            android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
             android:layout_alignBottom="@+id/buttonDrehen"
-            android:layout_toRightOf="@+id/buttonShipBiggest"/>
-    <ImageButton
-            android:id="@+id/buttonShipBiggest"
+            android:layout_toRightOf="@+id/imageShipBiggest"/>
+    <ImageView
+            android:id="@+id/imageShipBiggest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/image_ship_biggest"
+            android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/buttonDrehen"/>
-    <ImageButton
-        android:id="@+id/buttonShipBig"
+    <ImageView
+        android:id="@+id/imageShipBig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/image_ship_big"
+        android:contentDescription="@string/startscreen"
         android:layout_gravity="center"
         android:layout_alignTop="@+id/imagePlayfield"
-        android:layout_toLeftOf="@+id/buttonShipMedium"
+        android:layout_toLeftOf="@+id/imageShipMedium"
         android:layout_marginRight="31dp"
         android:layout_marginTop="19dp"/>
-    <ImageButton
-            android:id="@+id/buttonShipMedium"
+    <ImageView
+            android:id="@+id/imageShipMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/image_ship_medium"
+            android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
-            android:layout_above="@+id/buttonShipSmall"
+            android:layout_above="@+id/imageShipSmall"
             android:layout_alignRight="@+id/buttonSpielen"/>
-    <ImageButton
-            android:id="@+id/buttonShipMedium2"
+    <ImageView
+            android:id="@+id/imageShipMedium2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/image_ship_medium2"
+            android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
-            android:layout_alignTop="@+id/buttonShipSmall"
-            android:layout_alignLeft="@+id/buttonShipMedium"/>
-    <ImageButton
-            android:id="@+id/buttonShipSmall"
+            android:layout_alignTop="@+id/imageShipSmall"
+            android:layout_alignLeft="@+id/imageShipMedium"/>
+    <ImageView
+            android:id="@+id/imageShipSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/image_ship_small"
+            android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
-            android:layout_below="@+id/buttonShipBig"
-            android:layout_alignRight="@+id/buttonShipBig"
+            android:layout_below="@+id/imageShipBig"
+            android:layout_alignRight="@+id/imageShipBig"
             android:layout_marginTop="22dp"/>
 
 

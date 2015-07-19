@@ -21,8 +21,10 @@
             android:layout_width="250dp"
             android:layout_height="230dp"
             android:src="@drawable/image_playfield2"
+            android:layout_alignTop="@+id/imagePlayfield"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imagePlayfield"/>
+            android:layout_marginRight="55dp"/>
     <ImageView
         android:id="@+id/imagePlayer1"
         android:layout_width="wrap_content"

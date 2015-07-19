@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.view.View.OnDragListener;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 /**
  * Created by thomasmundt on 28.06.15.
@@ -20,16 +22,17 @@ import android.view.View.OnDragListener;
 public class SetupPlayerFieldActivity extends Activity {
 
 
-    private ImageView imagePlayfield;
-    private ImageButton buttonDrehen;
-    private ImageButton buttonSpielen;
-    private ImageButton buttonShipBiggest;
-    private ImageButton buttonShipBig;
-    private ImageButton buttonShipMedium;
-    private ImageButton buttonShipMedium2;
-    private ImageButton buttonShipSmall;
+    public ImageView imagePlayfield;
+    public ImageButton buttonDrehen;
+    public ImageButton buttonSpielen;
+    public ImageView imageShipBiggest;
+    public ImageView imageShipBig;
+    public ImageView imageShipMedium;
+    public ImageView imageShipMedium2;
+    public ImageView imageShipSmall;
 
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,16 +40,25 @@ public class SetupPlayerFieldActivity extends Activity {
         imagePlayfield = (ImageView) findViewById(R.id.imagePlayfield);
         buttonDrehen = (ImageButton) findViewById(R.id.buttonDrehen);
         buttonSpielen = (ImageButton) findViewById(R.id.buttonSpielen);
-        buttonShipBiggest = (ImageButton) findViewById(R.id.buttonShipBiggest);
-        buttonShipBig = (ImageButton) findViewById(R.id.buttonShipBig);
-        buttonShipMedium = (ImageButton) findViewById(R.id.buttonShipMedium);
-        buttonShipMedium2 = (ImageButton) findViewById(R.id.buttonShipMedium2);
-        buttonShipSmall = (ImageButton) findViewById(R.id.buttonShipSmall);
-        findViewById(R.id.buttonShipBiggest).setOnTouchListener(new MyTouchListener());
-        findViewById(R.id.buttonShipBig).setOnTouchListener(new MyTouchListener());
-        findViewById(R.id.buttonShipMedium).setOnTouchListener(new MyTouchListener());
-        findViewById(R.id.buttonShipMedium2).setOnTouchListener(new MyTouchListener());
-        findViewById(R.id.buttonShipSmall).setOnTouchListener(new MyTouchListener());
+        imageShipBiggest = (ImageView) findViewById(R.id.imageShipBiggest);
+        imageShipBig = (ImageView) findViewById(R.id.imageShipBig);
+        imageShipMedium = (ImageView) findViewById(R.id.imageShipMedium);
+        imageShipMedium2 = (ImageView) findViewById(R.id.imageShipMedium2);
+        imageShipSmall = (ImageView) findViewById(R.id.imageShipSmall);
+
+        findViewById(R.id.imageShipBiggest).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.imageShipBig).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.imageShipMedium).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.imageShipMedium2).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.imageShipSmall).setOnTouchListener(new MyTouchListener());
+
+        findViewById(R.id.imageShipBiggest).setOnDragListener(new MyDragListener());
+        findViewById(R.id.imageShipMedium).setOnDragListener(new MyDragListener());
+        findViewById(R.id.imageShipMedium2).setOnDragListener(new MyDragListener());
+        findViewById(R.id.imageShipBig).setOnDragListener(new MyDragListener());
+        findViewById(R.id.imageShipSmall).setOnDragListener(new MyDragListener());
+        findViewById(R.id.button_a1).setOnDragListener(new MyDragListener());
+
     }
 
     private final class MyTouchListener implements View.OnTouchListener {
@@ -64,14 +76,43 @@ public class SetupPlayerFieldActivity extends Activity {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     class MyDragListener implements View.OnDragListener {
-        Drawable enterShape = getResources().getDrawable(R.drawable.image_playfield);
-        Drawable normalShape = getResources().getDrawable(R.drawable.image_playfield);
 
 
         @Override
         public boolean onDrag(View v, DragEvent event) {
-            return false;
+            int action = event.getAction();
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    // do nothing
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+
+                    break;
+                case DragEvent.ACTION_DROP:
+                    // Dropped, reassign View to ViewGroup
+                    View view = (View) event.getLocalState();
+                    ViewGroup owner = (ViewGroup) view.getParent();
+                    owner.removeView(view);
+                    //RelativeLayout container = (RelativeLayout) v;
+                    //container.addView(view);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+
+                default:
+                    break;
+            }
+            return true;
         }
+
     }
+
+
 }
+
+
