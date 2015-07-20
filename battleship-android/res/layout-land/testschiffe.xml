@@ -11,221 +11,260 @@
             android:background="@drawable/button_drehen"
             android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
-            android:layout_alignParentBottom="true" android:layout_alignRight="@+id/imageShipBiggest"
-            android:layout_marginBottom="31dp"/>
+            android:layout_below="@+id/imageShipCarrier"
+            android:layout_alignLeft="@+id/imageShipCarrier"
+            android:layout_alignStart="@+id/imageShipCarrier"
+            android:layout_marginTop="28dp"/>
     <ImageButton
             android:id="@+id/buttonSpielen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_spielen"
             android:contentDescription="@string/startscreen"
-            android:layout_gravity="center" android:layout_alignTop="@+id/buttonDrehen"
-            android:layout_alignLeft="@+id/imageShipBig"/>
+            android:layout_gravity="center"
+            android:layout_alignBottom="@+id/buttonDrehen"
+            android:layout_toRightOf="@+id/imageShipCruiser"
+            android:layout_toEndOf="@+id/imageShipCruiser"/>
     <ImageView
-            android:id="@+id/imageShipBiggest"
+            android:id="@+id/imageShipCarrier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/image_ship_biggest"
+            android:background="@drawable/image_ship_carrier"
             android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
-            android:layout_marginRight="212dp" android:layout_centerVertical="true"
+            android:layout_marginRight="212dp"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"/>
     <ImageView
-            android:id="@+id/imageShipBig"
+            android:id="@+id/imageShipCruiser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/image_ship_big"
+            android:background="@drawable/image_ship_cruiser"
             android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
-            android:layout_marginLeft="51dp"
-            android:layout_below="@+id/imageShipMedium" android:layout_toRightOf="@+id/buttonDrehen"/>
+            android:layout_marginLeft="31dp"
+            android:layout_marginStart="31dp"
+            android:layout_above="@+id/imageShipSpeedboat"
+            android:layout_toRightOf="@+id/buttonDrehen"
+            android:layout_toEndOf="@+id/buttonDrehen"/>
     <ImageView
-            android:id="@+id/imageShipMedium"
+            android:id="@+id/imageShipGunboat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/image_ship_medium"
+            android:background="@drawable/image_ship_gunboat"
             android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
-            android:layout_above="@+id/imageShipBiggest" android:layout_toRightOf="@+id/imageShipBig"
-            android:layout_marginLeft="44dp"/>
+            android:layout_marginLeft="42dp"
+            android:layout_alignBottom="@+id/imageShipCruiser"
+            android:layout_toRightOf="@+id/imageShipCruiser"
+            android:layout_toEndOf="@+id/imageShipCruiser"
+            android:layout_marginStart="42dp"/>
     <ImageView
-            android:id="@+id/imageShipMedium2"
+            android:id="@+id/imageShipSpeedboat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/image_ship_medium2"
+            android:background="@drawable/image_ship_speedboat"
             android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
-            android:layout_alignBottom="@+id/imageShipSmall" android:layout_alignLeft="@+id/imageShipMedium"/>
+            android:layout_alignBottom="@+id/imageShipCarrier"
+            android:layout_toRightOf="@+id/imageShipCruiser"
+            android:layout_toEndOf="@+id/imageShipCruiser"/>
     <ImageView
-            android:id="@+id/imageShipSmall"
+            android:id="@+id/imageShipSubmarine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/image_ship_small"
+            android:background="@drawable/image_ship_submarine"
             android:contentDescription="@string/startscreen"
             android:layout_gravity="center"
-            android:layout_below="@+id/imageShipBig"
-            android:layout_alignRight="@+id/imageShipBig"
-            android:layout_marginTop="22dp"/>
-        <FrameLayout
-                android:id="@+id/button_a1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="510dp"
-                android:layout_marginTop="68dp"
-                android:layout_marginBottom="238dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_a2"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="84dp"
-                android:layout_marginRight="475dp"
-                android:layout_marginTop="68dp"
-                android:layout_marginBottom="238dp">
-        </FrameLayout>
-        <FrameLayout
-        android:id="@+id/button_a3"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="437dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginBottom="238dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_a4"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="160dp"
-                android:layout_marginRight="400dp"
-                android:layout_marginTop="68dp"
-                android:layout_marginBottom="238dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_a5"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="195dp"
-                android:layout_marginRight="362dp"
-                android:layout_marginTop="68dp"
-                android:layout_marginBottom="238dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_a6"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="234dp"
-                android:layout_marginRight="325dp"
-                android:layout_marginTop="68dp"
-                android:layout_marginBottom="238dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_a7"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="270dp"
-                android:layout_marginRight="287dp"
-                android:layout_marginTop="68dp"
-                android:layout_marginBottom="238dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_a8"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="310dp"
-                android:layout_marginRight="250dp"
-                android:layout_marginTop="68dp"
-                android:layout_marginBottom="238dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_b1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="510dp"
-                android:layout_marginTop="94dp"
-                android:layout_marginBottom="210dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_b2"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="84dp"
-                android:layout_marginRight="475dp"
-                android:layout_marginTop="94dp"
-                android:layout_marginBottom="210dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_b3"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="120dp"
-                android:layout_marginRight="437dp"
-                android:layout_marginTop="94dp"
-                android:layout_marginBottom="210dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_b4"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="160dp"
-                android:layout_marginRight="400dp"
-                android:layout_marginTop="94dp"
-                android:layout_marginBottom="210dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_b5"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="195dp"
-                android:layout_marginRight="362dp"
-                android:layout_marginTop="94dp"
-                android:layout_marginBottom="210dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_b6"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="234dp"
-                android:layout_marginRight="325dp"
-                android:layout_marginTop="94dp"
-                android:layout_marginBottom="210dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_b7"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="270dp"
-                android:layout_marginRight="287dp"
-                android:layout_marginTop="94dp"
-                android:layout_marginBottom="210dp">
-        </FrameLayout>
-        <FrameLayout
-                android:id="@+id/button_b8"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="310dp"
-                android:layout_marginRight="250dp"
-                android:layout_marginTop="94dp"
-                android:layout_marginBottom="210dp">
-        </FrameLayout>
+            android:layout_alignBottom="@+id/button_b8"
+            android:layout_alignRight="@+id/buttonSpielen"
+            android:layout_alignEnd="@+id/buttonSpielen"/>
+    <!--<ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_a1"
+            android:background="@drawable/button_a1"
+            android:contentDescription="@string/startscreen"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginStart="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/buttonDrehen"
+            android:layout_alignTop="@+id/imageShipCruiser"
+            android:layout_alignBottom="@+id/buttonDrehen"
+            android:layout_toLeftOf="@+id/buttonDrehen"/>-->
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/feld1"
+            android:layout_alignRight="@+id/button_a1"
+            android:layout_alignEnd="@+id/button_a1"
+            android:layout_alignTop="@+id/button_a1"
+            android:layout_alignBottom="@+id/buttonDrehen"
+            android:layout_alignLeft="@+id/button_a1"
+            android:layout_alignStart="@+id/button_a1">
+    </LinearLayout>
+    <!--  <FrameLayout
+              android:id="@+id/button_a1"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="50dp"
+              android:layout_marginTop="68dp"
+              android:layout_marginBottom="238dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_a2"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="84dp"
+              android:layout_marginRight="475dp"
+              android:layout_marginTop="68dp"
+              android:layout_marginBottom="238dp">
+      </FrameLayout>
+      <FrameLayout
+      android:id="@+id/button_a3"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:layout_alignParentLeft="true"
+      android:layout_marginLeft="120dp"
+      android:layout_marginRight="437dp"
+      android:layout_marginTop="68dp"
+      android:layout_marginBottom="238dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_a4"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="160dp"
+              android:layout_marginRight="400dp"
+              android:layout_marginTop="68dp"
+              android:layout_marginBottom="238dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_a5"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="195dp"
+              android:layout_marginRight="362dp"
+              android:layout_marginTop="68dp"
+              android:layout_marginBottom="238dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_a6"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="234dp"
+              android:layout_marginRight="325dp"
+              android:layout_marginTop="68dp"
+              android:layout_marginBottom="238dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_a7"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="270dp"
+              android:layout_marginRight="287dp"
+              android:layout_marginTop="68dp"
+              android:layout_alignBottom="@+id/imageShipSubmarine">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_a8"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="310dp"
+              android:layout_marginRight="250dp"
+              android:layout_marginTop="68dp"
+              android:layout_marginBottom="238dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_b1"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="50dp"
+              android:layout_marginRight="510dp"
+              android:layout_marginTop="94dp"
+              android:layout_marginBottom="210dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_b2"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="84dp"
+              android:layout_marginRight="475dp"
+              android:layout_marginTop="94dp"
+              android:layout_marginBottom="210dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_b3"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="120dp"
+              android:layout_marginRight="437dp"
+              android:layout_marginTop="94dp"
+              android:layout_marginBottom="210dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_b4"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="160dp"
+              android:layout_marginRight="400dp"
+              android:layout_marginTop="94dp"
+              android:layout_marginBottom="210dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_b5"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="195dp"
+              android:layout_marginRight="362dp"
+              android:layout_marginTop="94dp"
+              android:layout_marginBottom="210dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_b6"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="234dp"
+              android:layout_marginRight="325dp"
+              android:layout_marginTop="94dp"
+              android:layout_marginBottom="210dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_b7"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="270dp"
+              android:layout_marginRight="287dp"
+              android:layout_marginTop="94dp"
+              android:layout_marginBottom="210dp">
+      </FrameLayout>
+      <FrameLayout
+              android:id="@+id/button_b8"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_alignParentLeft="true"
+              android:layout_marginLeft="310dp"
+              android:layout_marginRight="250dp"
+              android:layout_marginTop="94dp"
+              android:layout_marginBottom="210dp">
+      </FrameLayout>-->
 
 
 
