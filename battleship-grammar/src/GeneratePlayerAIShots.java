@@ -44,9 +44,9 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         File file;
 
         // Pfad zur Metadaten-Datei in Windows - TOM
-        //String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
+        String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
         // Pfad zur Metadaten-Datei in MAC - TOM
-        String filePath = "/Users/thomasmundt/repo/github/battleship-app/battleship-grammar/src/ShotsPlayerAI.txt";
+//        String filePath = "/Users/thomasmundt/repo/github/battleship-app/battleship-grammar/src/ShotsPlayerAI.txt";
 
         file = new File(filePath);
         if(file.exists()) {
@@ -87,10 +87,10 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
 //        String pathToFile = "D:/coding/repo/github/battleship-app/battleship-android/src";
 
         // Einstellung für Tom/Windows
-//        String pathToFile = "E:/repo/github/battleship-app/battleship-android/src";
+        String pathToFile = "E:/repo/github/battleship-app/battleship-android/src";
 
         // Einstellung für Tom/Mac
-        String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
+//        String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
         pathToFile += "/org/nse/battleship";
 
         pathToFile += "/GeneratedPlayerAI.java";
@@ -162,21 +162,19 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
             isCentral = true;
             System.out.println("im zentralen Bereich.");
         }
-        System.out.println("TEST: Zufall ist:" + isRandom + "links: " + isLeft);
-//        if (isRandom & isLeft) {
-//
-//        }
+
         // Generiere zufaelligen Schuss, je nach Bereich
         if (isRandom) {
             if(isLeft) {
                 System.out.println("zufällig, links");
                 shot = generateRandomShot("links");
-            }
-            if (isRight) {
+            } else if (isRight) {
                 shot = generateRandomShot("rechts");
-            }
-            if(isCentral) {
+            } else if(isCentral) {
                 shot = generateRandomShot("zentral");
+            } else {
+                // Keine der erlaubten Bereiche angegeben = keine Richtung gemaess Grammatik
+                shot = generateRandomShot("ueberall");
             }
         }
         // Generiere naechst-moeglichen Schuss im jeweiligen Bereich
@@ -184,18 +182,21 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         if (isRandom == false) {
             if(isLeft) {
                 shot = generateShotInNextFreeSpace("links");
-            }
-            if (isRight) {
+            } else if (isRight) {
                 shot = generateShotInNextFreeSpace("rechts");
-            }
-            if(isCentral) {
+            } else if(isCentral) {
                 System.out.println("Kein zufälliger Schuss, zentraler Bereich");
                 shot = generateShotInNextFreeSpace("zentral");
+            } else {
+                // Keine der erlaubten Bereiche angegeben = keine Richtung gemaess Grammatik
+                // => schiesse auf die nächste noch nicht beschossene Koordinate
+                shot = generateShotInNextFreeSpace("ueberall");
             }
         }
 
 
         System.out.println("Generierter Schuss auf Koordinate: " + shot);
+        code.append("        Shots.add(\"" + shot + "\");\n");
     }
 
     @Override
@@ -289,7 +290,7 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
                 // Erstelle temporaere Koordinate
                 tempCoord = coord+Integer.toString(i);
                 // Pruefe ob diese Koordinate bereits zum Beschiessen vorgesehen war
-                System.out.println("Überprüfe Koordinate" + tempCoord);
+                System.out.println("generateShotInNextFreeSpace(), überprüfe Koordinate " + tempCoord);
 
                 if(mapShotsPlayerAI.get(tempCoord) == false) {
                     //Koordinate noch nicht belegt: belegen
@@ -304,9 +305,8 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         // Kein Schuss im Bereich gefunden: finde den nächst möglichen in der gesamten Map
         // Es muss mindestens noch ein freies Feld in der Map geben wg. der Grammatik!
         if (shot.isEmpty()) {
-            generateShotInNextFreeSpace("ueberall");
             System.out.println("Keinen möglichen Schuss für Bereich " + area + "gefunden.");
-            System.out.println("Generiere nächstmöglichen Schuss im nächsten freien Feld!");
+            System.out.println("Generiere nächstmöglichen Schuss im gesamten Feld!");
 
             // Rekursiver Aufruf der Methode: Suche ueberall!
             generateShotInNextFreeSpace("ueberall");
@@ -332,10 +332,6 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
 
     }
 
-    private static String setShotIntoField(String start, String end) {
-        String shot = "";
-        return shot;
-    }
 
     /**
      * Erstellen eines Zufallsschusses der KI
