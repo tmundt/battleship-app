@@ -19,74 +19,78 @@ import android.widget.*;
 public class TestActivity extends Activity {
 
 
-    public ImageView imagePlayfield;
     public ImageButton buttonDrehen;
     public ImageButton buttonSpielen;
-    public ImageView imageShipBiggest;
-    public ImageView imageShipBig;
-    public ImageView imageShipMedium;
-    public ImageView imageShipMedium2;
-    public ImageView imageShipSmall;
-    public FrameLayout button_a1;
-    public FrameLayout button_a2;
-    public FrameLayout button_a3;
-    public FrameLayout button_a4;
-    public FrameLayout button_a5;
-    public FrameLayout button_a6;
-    public FrameLayout button_a7;
-    public FrameLayout button_a8;
+    public ImageView imageShipCarrier;
+    public ImageView imageShipCruiser;
+    public ImageView imageShipGunboat;
+    public ImageView imageShipSpeedboat;
+    public ImageView imageShipSubmarine;
+   // public ImageView button_a1;
+    public LinearLayout feld1;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.testschiffe);
-        imagePlayfield = (ImageView) findViewById(R.id.imagePlayfield);
+        feld1 = (LinearLayout) findViewById(R.id.feld1);
+        //button_a1 = (ImageView) findViewById(R.id.button_a1);
         buttonDrehen = (ImageButton) findViewById(R.id.buttonDrehen);
         buttonSpielen = (ImageButton) findViewById(R.id.buttonSpielen);
-        imageShipBiggest = (ImageView) findViewById(R.id.imageShipBiggest);
-        imageShipBig = (ImageView) findViewById(R.id.imageShipBig);
-        imageShipMedium = (ImageView) findViewById(R.id.imageShipMedium);
-        imageShipMedium2 = (ImageView) findViewById(R.id.imageShipMedium2);
-        imageShipSmall = (ImageView) findViewById(R.id.imageShipSmall);
-        button_a1 = (FrameLayout) findViewById(R.id.button_a1);
+        imageShipCarrier = (ImageView) findViewById(R.id.imageShipCarrier);
+        imageShipCruiser = (ImageView) findViewById(R.id.imageShipCruiser);
+        imageShipGunboat = (ImageView) findViewById(R.id.imageShipGunboat);
+        imageShipSpeedboat = (ImageView) findViewById(R.id.imageShipSpeedboat);
+        imageShipSubmarine = (ImageView) findViewById(R.id.imageShipSubmarine);
+
+        // Set tags to identify imageviews = different ships
+        imageShipCarrier.setTag("shipCarrier");
+        imageShipCruiser.setTag("shipCruiser");
+        imageShipGunboat.setTag("shipGunboat");
+        imageShipSpeedboat.setTag("shipSpeedboat");
+        imageShipSubmarine.setTag("shipSubmarine");
 
 
+        findViewById(R.id.imageShipCarrier).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.imageShipCruiser).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.imageShipGunboat).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.imageShipSpeedboat).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.imageShipSubmarine).setOnTouchListener(new MyTouchListener());
 
-        findViewById(R.id.imageShipBiggest).setOnTouchListener(new MyTouchListener());
-        findViewById(R.id.imageShipBig).setOnTouchListener(new MyTouchListener());
-        findViewById(R.id.imageShipMedium).setOnTouchListener(new MyTouchListener());
-        findViewById(R.id.imageShipMedium2).setOnTouchListener(new MyTouchListener());
-        findViewById(R.id.imageShipSmall).setOnTouchListener(new MyTouchListener());
+        //findViewById(R.id.button_a1).setOnDragListener(new MyDragListener());
+        //button_a1.setOnDragListener(new MyDragListener());
+        findViewById(R.id.feld1).setOnDragListener(new MyDragListener());
+        feld1.setOnDragListener(new MyDragListener());
 
-        findViewById(R.id.imageShipBiggest).setOnDragListener(new MyDragListener());
-        findViewById(R.id.imageShipMedium).setOnDragListener(new MyDragListener());
-        findViewById(R.id.imageShipMedium2).setOnDragListener(new MyDragListener());
-        findViewById(R.id.imageShipBig).setOnDragListener(new MyDragListener());
-        findViewById(R.id.imageShipSmall).setOnDragListener(new MyDragListener());
-        findViewById(R.id.button_a1).setOnDragListener(new MyDragListener());
-        findViewById(R.id.button_a2).setOnDragListener(new MyDragListener());
-        findViewById(R.id.button_a3).setOnDragListener(new MyDragListener());
-        findViewById(R.id.button_a4).setOnDragListener(new MyDragListener());
-        findViewById(R.id.button_a5).setOnDragListener(new MyDragListener());
-        findViewById(R.id.button_a6).setOnDragListener(new MyDragListener());
-        findViewById(R.id.button_a7).setOnDragListener(new MyDragListener());
-        findViewById(R.id.button_a8).setOnDragListener(new MyDragListener());
-        findViewById(R.id.button_b1).setOnDragListener(new MyDragListener());
-        findViewById(R.id.button_b2).setOnDragListener(new MyDragListener());
+       // findViewById(R.id.imageShipCarrier).setOnDragListener(new MyDragListener());
+       // findViewById(R.id.imageShipCruiser).setOnDragListener(new MyDragListener());
+       // findViewById(R.id.imageShipGunboat).setOnDragListener(new MyDragListener());
+       // findViewById(R.id.imageShipSpeedboat).setOnDragListener(new MyDragListener());
+       // findViewById(R.id.imageShipSubmarine).setOnDragListener(new MyDragListener());
+
 
     }
 
     private final class MyTouchListener implements View.OnTouchListener {
         public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                ClipData data = ClipData.newPlainText("", "");
-                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-                view.startDrag(data, shadowBuilder, view, 0);
-                view.setVisibility(View.INVISIBLE);
-                return true;
-            } else {
-                return false;
+            final int action = motionEvent.getAction();
+
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    ClipData.Item item = new ClipData.Item((CharSequence)view.getTag());
+                    //  ClipData dragData = new ClipData((CharSequence) view.getTag(),item);
+                    ClipData dragData = new ClipData(ClipData.newPlainText((CharSequence)view.getTag(), ""));
+                    View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+                    view.startDrag(dragData, shadowBuilder, view, 0);
+                    view.setVisibility(View.INVISIBLE);
+                    return true;
+                case MotionEvent.ACTION_UP:
+                    Log.d("ACTION_UP", "released ship");
+                case MotionEvent.ACTION_CANCEL:
+                    Log.e("ACTION_CANCEL", "ship x-coord:" + view.getX());
             }
+            return true;
         }
     }
 
@@ -94,40 +98,51 @@ public class TestActivity extends Activity {
 
         @Override
         public boolean onDrag(View v, DragEvent event) {
+            int action = event.getAction();
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
-                    Log.i("Hallo" ,"Action is DragEvent.ACTION_DRAG_STARTED");
                     // do nothing
                     break;
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    Log.i("Hallo" ,"Action is DragEvent.ACTION_DRAG_ENTERED");
-
-
+                    Log.d("ACTION_DRAG_ENTERED","entered:" + v.getTag());
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
-                    Log.i("Hallo" ,"Action is DragEvent.ACTION_DRAG_EXITED");
-
-
 
                     break;
                 case DragEvent.ACTION_DROP:
-                    Log.i("Hallo" ,"Action is DragEvent.ACTION_DROP");
+                    String viewTag = (String) v.getTag();
+                    Log.i("ACTION_DROP","target view is: " +v.getTag());
+                    Log.i("ACTION_DROP","view v is: " + v);
+                    if (v != feld1) {
+//                    if (viewTag.equals("imagePlayfield")== false) {
+                        Log.e("ACTION_DROP","wrong drop!");
+                        v.setVisibility(View.VISIBLE);
+                        return false;
+                    }
                     // Dropped, reassign View to ViewGroup
-                    // View view = (View) event.getLocalState();
-                    //ViewGroup owner = (ViewGroup) view.getParent();
-                    //owner.removeView(view);
-                    //RelativeLayout container = (RelativeLayout) v;
-                    //container.addView(view);
-                    // view.setVisibility(View.VISIBLE);
+                    View dragView = (View) event.getLocalState();
+                    float X = event.getX();
+                    float Y = event.getY();
+
+                    Log.d("ACTION_DROP:","X " + (int) X + "Y " + (int) Y);
+                    dragView.setX(X);
+                    dragView.setY(Y);
+                    dragView.setVisibility(View.VISIBLE);
+//                    ViewGroup owner = (ViewGroup) dragView.getParent();
+//                    owner.removeView(dragView);
+//                    RelativeLayout container = (RelativeLayout) v;
+//                    container.addView(dragView);
+                    //dragView.setVisibility(View.VISIBLE);
+                    Log.d("ACTION_DROP","dropped:" + dragView.getTag());
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
-                    Log.i("Hallo" ,"Action is DragEvent.ACTION_DRAG_ENDED");
-
+                    Log.d("ACTION_DRAG_ENDED","dropped:" + v.getId());
                 default:
-                    break;
+                    return false;
             }
             return true;
         }
+
 
     }
 }
