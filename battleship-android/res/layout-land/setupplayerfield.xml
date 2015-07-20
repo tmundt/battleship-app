@@ -35,7 +35,7 @@
                 android:layout_alignBottom="@+id/imagePlayfield"
                 android:layout_toRightOf="@+id/imagePlayfield"
                 android:layout_marginLeft="24dp"/>
-        <ImageButton
+       <!-- <ImageButton
                 android:id="@+id/button_a1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 android:layout_toRightOf="@+id/imagePlayfield"
                 android:layout_marginLeft="-276dp"
                 android:layout_toLeftOf="@+id/buttonDrehen"
-                android:layout_alignTop="@+id/imageShipBig"/>
+                android:layout_alignTop="@+id/imageShipBig"/>-->
         <ImageButton
                 android:id="@+id/buttonSpielen"
                 android:layout_width="wrap_content"
@@ -55,53 +55,52 @@
                 android:contentDescription="@string/startscreen"
                 android:layout_gravity="center"
                 android:layout_alignBottom="@+id/buttonDrehen"
-                android:layout_toRightOf="@+id/imageShipBiggest"/>
+                android:layout_toRightOf="@+id/imageShipCarrier"/>
         <ImageView
-                android:id="@+id/imageShipBiggest"
+                android:id="@+id/imageShipCarrier"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/image_ship_biggest"
+                android:background="@drawable/image_ship_carrier"
                 android:contentDescription="@string/startscreen"
                 android:layout_gravity="center"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/buttonDrehen"/>
         <ImageView
-                android:id="@+id/imageShipBig"
+                android:id="@+id/imageShipCruiser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/image_ship_big"
+                android:background="@drawable/image_ship_cruiser"
                 android:contentDescription="@string/startscreen"
                 android:layout_gravity="center"
                 android:layout_alignTop="@+id/imagePlayfield"
-                android:layout_toLeftOf="@+id/imageShipMedium"
+                android:layout_toLeftOf="@+id/imageShipGunboat"
                 android:layout_marginRight="31dp"
                 android:layout_marginTop="19dp"/>
         <ImageView
-                android:id="@+id/imageShipMedium"
+                android:id="@+id/imageShipGunboat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/image_ship_medium"
+                android:background="@drawable/image_ship_gunboat"
                 android:contentDescription="@string/startscreen"
                 android:layout_gravity="center"
-                android:layout_above="@+id/imageShipSmall"
-                android:layout_alignRight="@+id/buttonSpielen"/>
+                android:layout_alignTop="@+id/imageShipCruiser" android:layout_alignRight="@+id/buttonSpielen"
+                android:layout_alignEnd="@+id/buttonSpielen"/>
         <ImageView
-                android:id="@+id/imageShipMedium2"
+                android:id="@+id/imageShipSubmarine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/image_ship_medium2"
+                android:background="@drawable/image_ship_submarine"
                 android:contentDescription="@string/startscreen"
                 android:layout_gravity="center"
-                android:layout_alignTop="@+id/imageShipSmall"
-                android:layout_alignLeft="@+id/imageShipMedium"/>
+                android:layout_above="@+id/buttonSpielen" android:layout_alignRight="@+id/buttonSpielen"
+                android:layout_alignEnd="@+id/buttonSpielen"/>
         <ImageView
-                android:id="@+id/imageShipSmall"
+                android:id="@+id/imageShipSpeedboat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/image_ship_small"
+                android:background="@drawable/image_ship_speedboat"
                 android:contentDescription="@string/startscreen"
                 android:layout_gravity="center"
-                android:layout_below="@+id/imageShipBig"
-                android:layout_alignRight="@+id/imageShipBig"
-                android:layout_marginTop="22dp"/>
+                android:layout_below="@+id/imageShipCruiser" android:layout_alignLeft="@+id/imageShipCruiser"
+                android:layout_alignStart="@+id/imageShipCruiser"/>
 </RelativeLayout>
