@@ -1,17 +1,18 @@
 package org.nse.battleship;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
-import android.content.ClipDescription;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.*;
+import android.view.DragEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 /**
@@ -29,13 +30,14 @@ public class SetupPlayerFieldActivity extends Activity {
     public ImageView imageShipGunboat;
     public ImageView imageShipSubmarine;
     public ImageView imageShipSpeedboat;
+    public ImageView imageShotWasHit;
+    public ImageView imageShotWasFail;
 
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setupplayerfield);
         imagePlayfield = (ImageView) findViewById(R.id.imagePlayfield);
@@ -46,6 +48,7 @@ public class SetupPlayerFieldActivity extends Activity {
         imageShipGunboat = (ImageView) findViewById(R.id.imageShipGunboat);
         imageShipSubmarine = (ImageView) findViewById(R.id.imageShipSubmarine);
         imageShipSpeedboat = (ImageView) findViewById(R.id.imageShipSpeedboat);
+        //imageShotWasHit = (ImageView) findViewById(R.id.image_getroffen);
 
         // Set tags to identify imageviews = different ships
         imageShipCarrier.setTag("shipCarrier");
@@ -158,48 +161,107 @@ public class SetupPlayerFieldActivity extends Activity {
                     y = y - (dragView.getHeight()/modifierY);
                     Log.d("ACTION_DROP:","NACH Korrektur, x ist: " + (int) x + ",y ist: " + (int) y);
                     // Begrenze den linken und rechten Rand
-                    if(x < 140) {
+                    if(x < 100) {
                         Log.e("ACTION_DROP","zu weit links: " + x);
-                        x = 140;
+                        x = 100;
                     }
 
-                    if(x > 965) {
-                        x = 965;
+                    if(x > 1042) {
+                        x = 1042;
                     }
 
                     // Begrenze nach oben
-                    if(y < 249) {
+                    if(y < 260) {
                         Log.e("ACTION_DROP","zu weit oben: " + y);
-                        y = 249;
+                        y = 260;
                     }
 
-                    //Begrenze nach unten, schiffsabh�ngig
+                    //Begrenze nach unten und korrigiere vertikal, schiffsabhaengig
                     switch (dragTag) {
                         case "shipCarrier":
-                            if (y > 583) {
+                            if (y > 646) {
                                 Log.e("ACTION_DROP","zu weit unten: " + y);
-                                y = 583;
+                                y = 645;
+                            }
+                            if (y < 645){
+                                // y < 645: korrigiere ggfs. vertikal
+                                for( int i = 260; i <= 770; i += 130) {
+                                    if(y > i && y < i + 120) {
+                                        Log.i("ACTION_DROP","Optimiere, y ist: " + y);
+                                        y = i;
+                                        Log.i("ACTION_DROP","Optimiert: y ist jetzt: " + i);
+                                    }
+                                }
                             }
                             break;
                         case "shipCruiser":
-                            if (y > 690) {
+                            if (y > 771) {
                                 Log.e("ACTION_DROP","zu weit unten: " + y);
-                                y = 690;
+                                y = 770;
                             }
+                            if (y < 770){
+                                // y < 770: korrigiere vertikal
+                                for( int i = 260; i <= 650; i += 130) {
+                                    if(y > i && y < i + 120) {
+                                        Log.i("ACTION_DROP","Optimiere, y ist: " + y);
+                                        y = i;
+                                        Log.i("ACTION_DROP","Optimiert: y ist jetzt: " + i);
+                                    }
+                                }
+                            }
+
                             break;
                         case "shipGunboat":
                         case "shipSubmarine":
-                            if (y > 805) {
+                            if (y > 901) {
                                 Log.e("ACTION_DROP","zu weit unten: " + y);
-                                y = 805;
+                                y = 900;
+                            }
+                            if (y < 900){
+                                // y < 770: korrigiere vertikal
+                                for( int i = 260; i <= 770; i += 130) {
+                                    if(y > i && y < i + 120) {
+                                        Log.i("ACTION_DROP","Optimiere, y ist: " + y);
+                                        y = i;
+                                        Log.i("ACTION_DROP","Optimiert: y ist jetzt: " + i);
+                                    }
+                                }
                             }
                             break;
                         case "shipSpeedboat":
-                            if (y > 924) {
+                            if (y > 1033) {
                                 Log.e("ACTION_DROP","zu weit unten: " + y);
-                                y = 924;
+                                y = 1032;
+                            }
+                            if (y < 1032){
+                                // y < 770: korrigiere vertikal
+                                for( int i = 260; i <= 900; i += 130) {
+                                    if(y > i && y < i + 120) {
+                                        Log.i("ACTION_DROP","Optimiere, y ist: " + y);
+                                        y = i;
+                                        Log.i("ACTION_DROP","Optimiert: y ist jetzt: " + i);
+                                    }
+                                }
                             }
                     }
+
+                    // Korrigiere horizontal an der X-Achse
+                    for( int i = 100; i < 1040; i += 135) {
+                        if(x > i && x < i + 120) {
+                            Log.i("ACTION_DROP","Optimiere, x ist: " + x);
+                            x = i;
+                            Log.i("ACTION_DROP","Optimiert: x ist jetzt: " );
+                        }
+                    }
+
+                    // Korrigiere vertikal an der Y-Achse
+//                    for( int i = 260; i < 1040; i += 135) {
+//                        if(x > i && x < i + 130) {
+//                            Log.i("ACTION_DROP","Optimiere, x ist: " + x);
+//                            x = i;
+//                            Log.i("ACTION_DROP","Optimiert: x ist jetzt: " );
+//                        }
+//                    }
 
                     // Speichere Schiff in Map ab
                     // rechne Koordinaten in Zellen
@@ -217,7 +279,9 @@ public class SetupPlayerFieldActivity extends Activity {
 //                    container.addView(dragView);
                     //dragView.setVisibility(View.VISIBLE);
                     Log.d("ACTION_DROP","dropped:" + dragView.getTag());
-                    Log.d("ACTION_DROP:","x ist: " + (int) x + "y ist: " + (int) y);
+                    Log.d("ACTION_DROP:", "x ist: " + (int) x + "y ist: " + (int) y);
+
+                    //setShotOnShip(dragTag, dragView);
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
                     Log.d("ACTION_DRAG_ENDED","dropped:" + v.getParent().toString());
@@ -231,6 +295,17 @@ public class SetupPlayerFieldActivity extends Activity {
                     return false;
             }
             return true;
+        }
+
+        private void setShotOnShip(String dragTag, View view) {
+            Log.i("DRAG_LISTENER","setShotOnShip: " +dragTag);
+            Resources r = getResources();
+            Drawable[] layers = new Drawable[2];
+            //layers[0] = r.getDrawable(R.drawable.t);
+            layers[0] = r.getDrawable(R.drawable.image_ship_carrier);
+            layers[1] = r.getDrawable(R.drawable.image_getroffen);
+            LayerDrawable layerDrawable = new LayerDrawable(layers);
+            imageShipCarrier.setImageDrawable(layerDrawable);
         }
     }
 }
