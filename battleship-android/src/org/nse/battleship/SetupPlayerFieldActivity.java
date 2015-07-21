@@ -121,7 +121,7 @@ public class SetupPlayerFieldActivity extends Activity {
                     Log.i("ACTION_DROP","view v is: " + v);
                     if (v != imagePlayfield) {
 //                    if (viewTag.equals("imagePlayfield")== false) {
-                        Log.e("ACTION_DROP","wrong drop!");
+                        Log.e("ACTION_DROP","wrong drop! Dropped into: "+viewTag);
                         v.setVisibility(View.VISIBLE);
                         return false;
                     }
@@ -173,7 +173,7 @@ public class SetupPlayerFieldActivity extends Activity {
                         y = 249;
                     }
 
-                    //Begrenze nach unten, schiffsabhängig
+                    //Begrenze nach unten, schiffsabhï¿½ngig
                     switch (dragTag) {
                         case "shipCarrier":
                             if (y > 583) {
@@ -207,7 +207,7 @@ public class SetupPlayerFieldActivity extends Activity {
                     // Falls belegt: kein Drop und kein Speichern
 
 
-                    // Vermeide das Übereinanderlegen von Schiffen
+                    // Vermeide das ï¿½bereinanderlegen von Schiffen
                     dragView.setX(x);
                     dragView.setY(y);
                     dragView.setVisibility(View.VISIBLE);

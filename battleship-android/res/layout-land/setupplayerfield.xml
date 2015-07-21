@@ -16,6 +16,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true">
         </ImageView>
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+    </FrameLayout>
         <ImageView
                 android:id="@+id/imagePlayfield"
                 android:layout_width="300dp"
