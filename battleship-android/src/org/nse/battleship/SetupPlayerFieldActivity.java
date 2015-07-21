@@ -8,10 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +34,8 @@ public class SetupPlayerFieldActivity extends Activity {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //Remove title bar
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setupplayerfield);
         imagePlayfield = (ImageView) findViewById(R.id.imagePlayfield);
@@ -75,7 +74,7 @@ public class SetupPlayerFieldActivity extends Activity {
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     ClipData.Item item = new ClipData.Item((CharSequence)view.getTag());
-                  //  ClipData dragData = new ClipData((CharSequence) view.getTag(),item);
+                    //  ClipData dragData = new ClipData((CharSequence) view.getTag(),item);
                     ClipData dragData = new ClipData(ClipData.newPlainText((CharSequence)view.getTag(), ""));
                     View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
                     view.startDrag(dragData, shadowBuilder, view, 0);
