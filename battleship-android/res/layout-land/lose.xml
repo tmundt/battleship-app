@@ -11,16 +11,16 @@
             android:layout_height="wrap_content"
             android:src="@drawable/text_verloren"
             android:contentDescription="@string/startscreen"
-            android:layout_marginBottom="99dp" android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="99dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
 
     <ImageView
             android:id="@+id/image_verloren"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/image_verloren"
             android:contentDescription="@string/startscreen"
-            android:layout_marginBottom="31dp"
-            android:layout_above="@+id/text_verloren"
-            android:layout_centerHorizontal="true"/>
+            android:layout_above="@+id/text_verloren" android:layout_alignRight="@+id/text_verloren"
+            android:layout_alignEnd="@+id/text_verloren"/>
 </RelativeLayout>
