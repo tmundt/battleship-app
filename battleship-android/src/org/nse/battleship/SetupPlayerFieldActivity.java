@@ -33,11 +33,24 @@ public class SetupPlayerFieldActivity extends Activity {
     public ImageView imageShotWasHit;
     public ImageView imageShotWasFail;
 
+    public Ship carrier;
+    public Ship cruiser;
+    public Ship gunboat;
+    public Ship submarine;
+    public Ship speedboat;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        carrier = new Ship(ShipType.CARRIER);
+        cruiser = new Ship(ShipType.CRUISER);
+        gunboat = new Ship(ShipType.GUNBOAT);
+        submarine = new Ship(ShipType.SUBMARINE);
+        speedboat = new Ship(ShipType.SPEEDBOAT);
+
+
         //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setupplayerfield);
         imagePlayfield = (ImageView) findViewById(R.id.imagePlayfield);
@@ -253,23 +266,14 @@ public class SetupPlayerFieldActivity extends Activity {
                             Log.i("ACTION_DROP","Optimiert: x ist jetzt: " );
                         }
                     }
-
-                    // Korrigiere vertikal an der Y-Achse
-//                    for( int i = 260; i < 1040; i += 135) {
-//                        if(x > i && x < i + 130) {
-//                            Log.i("ACTION_DROP","Optimiere, x ist: " + x);
-//                            x = i;
-//                            Log.i("ACTION_DROP","Optimiert: x ist jetzt: " );
-//                        }
-//                    }
-
-                    // Speichere Schiff in Map ab
-                    // rechne Koordinaten in Zellen
-                    // Pruefe ob bereits belegt
+                    // rechne Koordinaten in Zellen um
+                    // Pruefe ob bereits belegt in Map
                     // Falls belegt: kein Drop und kein Speichern
+                    // Speichere Schiff in Map ab wenn Schiff in endgültiger Position => Spielen Button gedrückt
 
 
-                    // Vermeide das �bereinanderlegen von Schiffen
+
+                    // Vermeide das Uebereinanderlegen von Schiffen
                     dragView.setX(x);
                     dragView.setY(y);
                     dragView.setVisibility(View.VISIBLE);
