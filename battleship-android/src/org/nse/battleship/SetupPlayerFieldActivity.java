@@ -13,6 +13,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 /**
  * Created by thomasmundt on 28.06.15.
  * Field where player should set up his ships
@@ -37,8 +40,7 @@ public class SetupPlayerFieldActivity extends Activity {
     public Ship submarine;
     public Ship speedboat;
 
-
-
+    private Map mapShipsPlayer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class SetupPlayerFieldActivity extends Activity {
         gunboat = new Ship(ShipType.GUNBOAT);
         submarine = new Ship(ShipType.SUBMARINE);
         speedboat = new Ship(ShipType.SPEEDBOAT);
+
+        mapShipsPlayer = new TreeMap<>();
 
 
         //Remove title bar
@@ -488,6 +492,10 @@ public class SetupPlayerFieldActivity extends Activity {
             }
 
             return isColliding;
+
+        }
+
+        private void setShipCoordinatesIntoMap() {
 
         }
 
