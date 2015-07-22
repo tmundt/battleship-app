@@ -3,14 +3,12 @@ package org.nse.battleship;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
+import android.view.*;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -40,6 +38,8 @@ public class SetupPlayerFieldActivity extends Activity {
     public Ship speedboat;
 
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         carrier = new Ship(ShipType.CARRIER);
@@ -54,7 +54,7 @@ public class SetupPlayerFieldActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setupplayerfield);
         imagePlayfield = (ImageView) findViewById(R.id.imagePlayfield);
-        buttonDrehen = (ImageButton) findViewById(R.id.buttonDrehen);
+//        buttonDrehen = (ImageButton) findViewById(R.id.buttonDrehen);
         buttonSpielen = (ImageButton) findViewById(R.id.buttonSpielen);
         imageShipCarrier = (ImageView) findViewById(R.id.imageShipCarrier);
         imageShipCruiser = (ImageView) findViewById(R.id.imageShipCruiser);
@@ -111,15 +111,16 @@ public class SetupPlayerFieldActivity extends Activity {
 
     class MyDragListener implements View.OnDragListener {
 
-
+        protected boolean isCollided;
         @Override
         public boolean onDrag(View v, DragEvent event) {
             int action = event.getAction();
             String viewTag = (String) v.getTag();
             float x = event.getX();
             float y = event.getY();
+            boolean collide;
 
-            switch (event.getAction()) {
+            switch (action) {
                 case DragEvent.ACTION_DRAG_STARTED:
                     Log.i("ACTION_DRAG_STARTED","target view is: " +v.getTag());
                     Log.i("ACTION_DRAG_STARTED","x ist: " +x+", y: "+ y);
@@ -138,6 +139,7 @@ public class SetupPlayerFieldActivity extends Activity {
                     if (v != imagePlayfield) {
 //                    if (viewTag.equals("imagePlayfield")== false) {
                         Log.e("ACTION_DROP","wrong drop! Dropped into: "+viewTag);
+//                        Log.e("ACTION_DROP","Collide is: "+collide);
                         v.setVisibility(View.VISIBLE);
                         return false;
                     }
@@ -286,13 +288,34 @@ public class SetupPlayerFieldActivity extends Activity {
                     Log.d("ACTION_DROP:", "x ist: " + (int) x + "y ist: " + (int) y);
 
                     //setShotOnShip(dragTag, dragView);
+                    //setHitImageOnShip(carrier, dragView);
+                    collide = checkShipCollision(dragView);
+                    Log.i("COLLIDING_CHECK","collide is: " + collide);
+                    if (collide) {
+                        Log.i("COLLIDING_CHECK","Colliding, collide is: ");
+//                        dragView.setVisibility(View.INVISIBLE);
+                        Log.i("ACTION_DROP","moving ship aside from " + x);
+                        if(x - 135 <  100) {
+                            x = x + 135;
+                        } else {
+                            x = x - 135;
+                        }
+                        Log.i("ACTION_DROP","moving ship aside to " + x);
+                        dragView.setX(x);
+//                        return false;
+                    } else {
+                        Log.i("COLLIDING_CHECK","Not colliding, collide is: " + collide);
+                    }
+
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
-                    Log.d("ACTION_DRAG_ENDED","dropped:" + v.getParent().toString());
+                    Log.d("ACTION_DRAG_ENDED","dropped into:" + v.getTag());
+                    Log.d("ACTION_DRAG_ENDED", "isCollided:" + this.isCollided);
                     if (!event.getResult()) {
                         // Nicht gedroppt, d.h. kein "result"
-                        v.setVisibility(View.VISIBLE);
-                        Log.e("ACTION_DRAG_ENDED", "not in drop zone:" + v.getTag());
+//                        v.setVisibility(View.VISIBLE);
+                        Log.i("ACTION_DRAG_ENDED", "not in drop zone:" + v.getTag());
+
                         return false;
                     }
                 default:
@@ -311,5 +334,162 @@ public class SetupPlayerFieldActivity extends Activity {
             LayerDrawable layerDrawable = new LayerDrawable(layers);
             imageShipCarrier.setImageDrawable(layerDrawable);
         }
+
+        private void setHitImageOnShip (Ship ship, View view) {
+//            ImageView hitImage = new ImageView(getApplicationContext());
+//            RelativeLayout layout = (RelativeLayout)findViewById(R.id.layoutSetupActivity);
+////            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)hitImage.getLayoutParams();
+//            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//            //RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) layout.getLayoutParams();
+//            params.addRule(RelativeLayout.CENTER_IN_PARENT, view.getId());
+//            hitImage.setLayoutParams(params);
+//            hitImage.setImageResource(R.drawable.image_getroffen);
+////            layout.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+//            layout.addView(hitImage);
+
+//            ImageView hitImage = new ImageView(getApplicationContext());
+//            RelativeLayout layout = (RelativeLayout)findViewById(R.id.layoutSetupActivity);
+//            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+//                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+//            hitImage.setLayoutParams(params);
+//            hitImage.setImageResource(R.drawable.image_getroffen);
+//            layout.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+//            layout.addView(hitImage);
+
+//            ImageView hitImage = new ImageView(getApplicationContext());
+//            RelativeLayout layout = (RelativeLayout)findViewById(R.id.layoutSetupActivity);
+//            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+//                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+//            hitImage.setLayoutParams(params);
+//            hitImage.setImageResource(R.drawable.image_getroffen);
+//            layout.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+//            layout.addView(hitImage);
+
+            ImageView hitImage = new ImageView(getApplicationContext());
+            RelativeLayout layout = (RelativeLayout)findViewById(R.id.layoutSetupActivity);
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
+//            params.addRule(RelativeLayout.CENTER_IN_PARENT, view.getId());
+            view.setLayoutParams(params);
+            hitImage.setImageResource(R.drawable.image_getroffen);
+            layout.addView(hitImage);
+        }
+
+        private boolean checkShipCollision(View movingView) {
+            boolean isColliding = false;
+            String movingViewName = movingView.getTag().toString();
+
+            Log.i("COLLISION_CHECK","checking dragImage: " + movingViewName);
+            Rect movingViewRect = new Rect();
+            movingView.getHitRect(movingViewRect);
+
+            Rect checkRect1 = new Rect();
+            Rect checkRect2 = new Rect();
+            Rect checkRect3 = new Rect();
+            Rect checkRect4 = new Rect();
+            Rect checkRect5 = new Rect();
+
+            imageShipCarrier.getHitRect(checkRect1);
+            imageShipCruiser.getHitRect(checkRect2);
+            imageShipGunboat.getHitRect(checkRect3);
+            imageShipSubmarine.getHitRect(checkRect4);
+            imageShipSpeedboat.getHitRect(checkRect5);
+
+            switch (movingViewName) {
+                case "shipCarrier":
+                    if(Rect.intersects(movingViewRect, checkRect2)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect2);
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect3)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect3);
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect4)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect4.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect5)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect5.flattenToString());
+                        isColliding = true;
+                    }
+                    break;
+
+                case "shipCruiser":
+                    if(Rect.intersects(movingViewRect, checkRect1)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect2.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect3)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect3.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect4)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect4.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect5)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect5.flattenToString());
+                        isColliding = true;
+                    }
+                    break;
+                case "shipGunboat":
+                    if(Rect.intersects(movingViewRect, checkRect1)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect2.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect2)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect3.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect4)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect4.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect5)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect5.flattenToString());
+                        isColliding = true;
+                    }
+                    break;
+                case "shipSubmarine":
+                    if(Rect.intersects(movingViewRect, checkRect1)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect2.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect2)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect3.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect3)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect4.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect5)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect5.flattenToString());
+                        isColliding = true;
+                    }
+                    break;
+                case "shipSpeedboat":
+                    if(Rect.intersects(movingViewRect, checkRect1)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect2.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect2)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect3.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect3)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect4.flattenToString());
+                        isColliding = true;
+                    }
+                    if(Rect.intersects(movingViewRect, checkRect4)) {
+                        Log.i("COLLISION","Ship " + movingViewName + " with " + checkRect5.flattenToString());
+                        isColliding = true;
+                    }
+            }
+
+            return isColliding;
+
+        }
+
     }
 }
