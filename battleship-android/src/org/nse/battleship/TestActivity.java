@@ -34,9 +34,9 @@ public class TestActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.testschiffe);
-        feld1 = (LinearLayout) findViewById(R.id.feld1);
+//        feld1 = (LinearLayout) findViewById(R.id.feld1);
         //button_a1 = (ImageView) findViewById(R.id.button_a1);
-        buttonDrehen = (ImageButton) findViewById(R.id.buttonDrehen);
+//        buttonDrehen = (ImageButton) findViewById(R.id.buttonDrehen);
         buttonSpielen = (ImageButton) findViewById(R.id.buttonSpielen);
         imageShipCarrier = (ImageView) findViewById(R.id.imageShipCarrier);
         imageShipCruiser = (ImageView) findViewById(R.id.imageShipCruiser);
@@ -60,7 +60,7 @@ public class TestActivity extends Activity {
 
         //findViewById(R.id.button_a1).setOnDragListener(new MyDragListener());
         //button_a1.setOnDragListener(new MyDragListener());
-        findViewById(R.id.feld1).setOnDragListener(new MyDragListener());
+//        findViewById(R.id.feld1).setOnDragListener(new MyDragListener());
         feld1.setOnDragListener(new MyDragListener());
 
        // findViewById(R.id.imageShipCarrier).setOnDragListener(new MyDragListener());
