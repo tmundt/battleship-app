@@ -11,8 +11,8 @@ public class Ship {
     private boolean positioned;
     private boolean selected;
     private ShipType shipType;
-    private int startX;
-    private int startY;
+    private float startX;
+    private float startY;
 
     public Ship(ShipType shipType) {
         this.size = shipType.getSize();
@@ -52,11 +52,19 @@ public class Ship {
         return shipType;
     }
 
-    public int getStartX() {
-        return startX;
+    public float getStartX() {
+        return this.startX;
     }
 
-    public int getStartY() {
-        return startY;
+    public float getStartY() {
+        return this.startY;
+    }
+
+    public void setStartX(float startX) {
+        this.startX = startX;
+    }
+
+    public void setStartY(float startY) {
+        this.startY = startY;
     }
 }
