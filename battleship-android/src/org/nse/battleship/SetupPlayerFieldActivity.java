@@ -473,7 +473,7 @@ public class SetupPlayerFieldActivity extends Activity implements View.OnClickLi
                 nextCell = newRow + column;
                 Log.i("CELL","next generated coordinate: " + nextCell);
                 // Speichere Koordinate
-                mapPlayfieldPlayer.put(cell, true);
+                mapPlayfieldPlayer.put(nextCell, true);
             }
         }
 
@@ -923,7 +923,8 @@ public class SetupPlayerFieldActivity extends Activity implements View.OnClickLi
             float x = 0;
             float y = 0;
             Log.i("BUTTON_LISTENER","Button clicked: " + v.getTag());
-            if (counterRounds < 65) {
+            if (counterRounds < 64) {
+                v.setOnClickListener(null);
                 isHitOnOpponent = checkIfShotOnOpponentHasHit(v.getTag().toString());
                 if(isHitOnOpponent) {
                     setHitOnShip(v.getX(), v.getY());
