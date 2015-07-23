@@ -4,5 +4,6 @@
     <string name="startscreen">startscreen</string>
     <string name="welcome">Willkommen zu BATTLESHIP by NSE</string>
     <string name="text_button_drehen">Schiff drehen</string>
+    <string name="textTitle">BATTLESHIP</string>
 
 </resources>

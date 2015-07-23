@@ -115,8 +115,10 @@ public class SetupPlayerFieldActivity extends Activity implements View.OnClickLi
     private Map mapPositionedShipsPlayer;
     private boolean[][] shotsPlayerAI;
     private int counterRounds;
+    private int shotsFiredPlayerAI;
     private int hitPointsPlayer;
     private int hitPointsOpponent;
+    private ArrayList<String> shotsOppponent;
     public ArrayList<ImageView> buttonList = new ArrayList<ImageView>();
 
     public SetupPlayerFieldActivity() {
@@ -131,7 +133,9 @@ public class SetupPlayerFieldActivity extends Activity implements View.OnClickLi
         mapPlayfieldOpponent = new TreeMap<String, Boolean>();
         initializePlayfields();
         mapPositionedShipsPlayer = new TreeMap<String, Ship>();
+        shotsOppponent = GeneratedPlayerAI.generateGameShots();
         counterRounds = 0;
+        shotsFiredPlayerAI = 0;
         hitPointsPlayer = 17;
         hitPointsOpponent = 17;
 
@@ -911,14 +915,17 @@ public class SetupPlayerFieldActivity extends Activity implements View.OnClickLi
      * ClickListener für die Buttons/Schüsse auf den Gegner
      */
     class CellButtonListener implements View.OnClickListener {
-        boolean isHit;
+        boolean isHitOnOpponent;
+        boolean isHitOnPlayer;
 
         @Override
         public void onClick(View v) {
+            float x = 0;
+            float y = 0;
             Log.i("BUTTON_LISTENER","Button clicked: " + v.getTag());
             if (counterRounds < 65) {
-                isHit = checkIfShotOnOpponentHasHit(v.getTag().toString());
-                if(isHit) {
+                isHitOnOpponent = checkIfShotOnOpponentHasHit(v.getTag().toString());
+                if(isHitOnOpponent) {
                     setHitOnShip(v.getX(), v.getY());
                     hitPointsOpponent -= 1;
                     if(hitPointsOpponent == 0) {
@@ -929,14 +936,97 @@ public class SetupPlayerFieldActivity extends Activity implements View.OnClickLi
                     // Zeige Daneben-Icon an
                     setMissOnField(v.getX(), v.getY());
                 }
+                // Opponent/ComputerAI makes his move
+                String shotOnPlayer = shotsOppponent.get(shotsFiredPlayerAI);
+                shotsFiredPlayerAI += 1;
+                isHitOnPlayer = checkIfShotOnPlayerHasHit(shotOnPlayer);
+
+                // Kalkuliere der X/Y Koordinate anhand Spielfeld-Position
+                float [] coords = generateCoordinateFromPosition(shotOnPlayer);
+                if(isHitOnPlayer) {
+                    setHitOnShip(coords[0], coords[1]);
+                    hitPointsPlayer -= 1;
+                    if(hitPointsPlayer == 0) {
+                        playerHasLost();
+                    }
+
+                } else {
+                    setMissOnField(coords[0], coords[1]);
+                }
             }
             counterRounds += 1;
-
-            // Opponent/ComputerAI makes his move
 
         }
     }
 
+    private float[] generateCoordinateFromPosition(String shotOnPlayer) {
+        float[] coords;
+        coords = new float[2];
+        float x = 0;
+        float y = 0;
+        String row = shotOnPlayer.substring(0,1);
+        String column = shotOnPlayer.substring(1);
+
+        switch(column) {
+            case("1"):
+                x = 100;
+                break;
+            case("2"):
+                x = 235;
+                break;
+            case("3"):
+                x = 370;
+                break;
+            case("4"):
+                x = 505;
+                break;
+            case("5"):
+                x = 640;
+                break;
+            case("6"):
+                x = 774;
+                break;
+            case("7"):
+                x = 910;
+                break;
+            case("8"):
+                x = 1042;
+                break;
+            default:
+                x = 0;
+        }
+        switch(row) {
+            case "A":
+                y = 260;
+                break;
+            case "B":
+                y = 390;
+                break;
+            case "C":
+                y = 520;
+                break;
+            case "D":
+                y = 645;
+                break;
+            case "E":
+                y = 770;
+                break;
+            case "F":
+                y = 910;
+                break;
+            case "G":
+                y = 1032;
+                break;
+            case "H":
+                y = 1150;
+                break;
+            default:
+                y = 0;
+        }
+         coords[0]= x;
+        coords[1] = y;
+        return coords;
+    }
 
 
     /**
@@ -1071,7 +1161,7 @@ public class SetupPlayerFieldActivity extends Activity implements View.OnClickLi
      * Sprung in die Spieler hat verloren - Activity
      */
     private void playerHasLost() {
-        Intent intent = new Intent(this, GameWonActivity.class);
+        Intent intent = new Intent(this, GameLostActivity.class);
         startActivity(intent);
     }
 
@@ -1092,6 +1182,4 @@ public class SetupPlayerFieldActivity extends Activity implements View.OnClickLi
 
         return randomNum;
     }
-
-
 }
