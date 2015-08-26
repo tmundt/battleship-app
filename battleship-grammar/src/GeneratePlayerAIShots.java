@@ -44,9 +44,9 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
         File file;
 
         // Pfad zur Metadaten-Datei in Windows - TOM
-        String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
+//        String filePath = "E:\\repo\\github\\battleship-app\\battleship-grammar\\src\\ShotsPlayerAI.txt";
         // Pfad zur Metadaten-Datei in MAC - TOM
-//        String filePath = "/Users/thomasmundt/repo/github/battleship-app/battleship-grammar/src/ShotsPlayerAI.txt";
+        String filePath = "/Users/thomasmundt/repo/github/battleship-app/battleship-grammar/src/ShotsPlayerAI.txt";
 
         file = new File(filePath);
         if(file.exists()) {
@@ -87,10 +87,10 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
 //        String pathToFile = "D:/coding/repo/github/battleship-app/battleship-android/src";
 
         // Einstellung für Tom/Windows
-        String pathToFile = "E:/repo/github/battleship-app/battleship-android/src";
+//        String pathToFile = "E:/repo/github/battleship-app/battleship-android/src";
 
         // Einstellung für Tom/Mac
-//        String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
+        String pathToFile = "/Users/thomasmundt/repo/github/battleship-app/battleship-android/src";
         pathToFile += "/org/nse/battleship";
 
         pathToFile += "/GeneratedPlayerAI.java";
@@ -119,7 +119,7 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
 
         // Auswertung der Zeile
         if (output.contains("zufaellig")) {
-            System.out.print("zufällig");
+            System.out.print("zufällig.");
             isRandom = true;
         }
         if(output.contains("linkslastig")) {
@@ -228,12 +228,12 @@ public class GeneratePlayerAIShots extends PlayerAIShotsBaseListener{
                 throw new IllegalArgumentException();
             }
             shot = rowCoord[randomRowCoord] + Integer.toString(randomColumnCoord);
-            System.out.println("generateRandomShot(), shot: " + shot);
 
             // Ueberpruefe ob Schuss bereits im Feld vorhanden bzw.
             // bereits auf diese Koordiante geschossen wurde
             if (mapShotsPlayerAI.get(shot) == false){
                 // Nein, setze generierten Zufalls-Schuss
+                System.out.println("generateRandomShot(), shot: " + shot);
                 GeneratePlayerAIShots.mapShotsPlayerAI.put(shot, true);
             }
         // Generiere Zufalls-Koordinate solange, bis Koordinate nicht gefunden/Schuss nicht gesetzt wurde
