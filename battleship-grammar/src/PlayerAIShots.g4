@@ -1,33 +1,22 @@
 /**
-*
 * Grammar PlayerAIShots
-* describes behavior of an AI player in the game Battleship
+* describes shoot behavior of an AI player in the game battleship
 */
 
 grammar PlayerAIShots;
-file : row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row row EOF ;
-//row : (sentence)* value (sentence)* (LineBreak | EOF) ;
-row : START (SPACE RANDOM)? (SPACE direction)? Dot (LineBreak | EOF);
-//value: (randomshot|specificshot) ;
+file : row row row row row row row row row row row row row row row row row row row row row
+ row row row row row row row row row row row row row row row row row row row row row row row
+ row row row row row row row row row row row row row row row row row row row row EOF ;
 
-//randomshot: 'Zufall' ;
+row : START (SPACE randomshot)? (SPACE direction)? Dot (LineBreak | EOF);
+
 SPACE : ' ' ;
 randomshot: RANDOM ;
 direction : DIRECTION ;
-//specificshot : SPECIFICSHOT ;
-//SPECIFICSHOT : [A-G][1-7] ;
-
-//direction : DIRECTION ;
-//begin :  BEGIN ;
 
 RANDOM : 'zufaellig' ;
 DIRECTION : ('linkslastig'|'rechtslastig'|'zentral') ;
 START : 'Der Computer schiesst' ;
-
-
-
-//sentence : SENTENCE ;
-//SENTENCE : ('A'..'Z'|'a'..'z'|'.'|'/'|'') ;
 
 Dot : '.' ;
 
