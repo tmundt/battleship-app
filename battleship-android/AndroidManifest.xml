@@ -35,6 +35,5 @@
         <activity android:name=".GameWonActivity"
                   android:screenOrientation="landscape"
                   android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
-        <activity android:name=".GameLostActivity"/>
     </application>
 </manifest>
